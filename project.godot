@@ -8,9 +8,14 @@
 
 config_version=4
 
-_global_script_classes=[  ]
+_global_script_classes=[ {
+"base": "KinematicBody2D",
+"class": "Player",
+"language": "GDScript",
+"path": "res://TestEnv/TestPlayer.gd"
+} ]
 _global_script_class_icons={
-
+"Player": ""
 }
 
 [application]
@@ -46,6 +51,15 @@ dash={
 "events": [ Object(InputEventKey,"resource_local_to_scene":false,"resource_name":"","device":0,"alt":false,"shift":false,"control":false,"meta":false,"command":false,"pressed":false,"scancode":16777237,"unicode":0,"echo":false,"script":null)
  ]
 }
+
+[layer_names]
+
+2d_render/layer_1="Player"
+2d_physics/layer_1="Player"
+2d_render/layer_2="Normal Enemies"
+2d_physics/layer_2="Normal Enemies"
+2d_render/layer_3="BOSS"
+2d_physics/layer_3="BOSS"
 
 [rendering]
 

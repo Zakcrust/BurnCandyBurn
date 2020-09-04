@@ -1,5 +1,6 @@
 extends KinematicBody2D
 
+class_name Player
 
 export (PackedScene) var bullet
 
