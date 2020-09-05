@@ -42,6 +42,8 @@ one_shot = true
 
 [node name="Collider" type="CollisionShape2D" parent="HurtBox"]
 shape = SubResource( 2 )
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
 [connection signal="timeout" from="DashTimer" to="." method="_on_DashTimer_timeout"]
 [connection signal="timeout" from="DashCooldown" to="." method="_on_DashCooldown_timeout"]
 [connection signal="body_entered" from="HurtBox" to="." method="_on_HurtBox_body_entered"]
