@@ -23,13 +23,13 @@ shape = SubResource( 1 )
 
 [node name="Hand" type="Sprite" parent="."]
 position = Vector2( 0.219727, 0.0576057 )
-rotation = -0.116557
+rotation = -0.0457078
 scale = Vector2( 1, 0.244313 )
 texture = ExtResource( 1 )
 offset = Vector2( 15, 5 )
 
 [node name="BulletSpawner" type="Node2D" parent="Hand"]
-position = Vector2( 52.7674, -0.055542 )
+position = Vector2( 50, 0 )
 
 [node name="DashTimer" type="Timer" parent="."]
 wait_time = 0.2

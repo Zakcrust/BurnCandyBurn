@@ -61,3 +61,7 @@ func _face_to_player():
 
 func _on_AttackCooldown_timeout():
 	attack_cooldown = false
+
+
+func _on_Player_send_bullet(obj):
+	pass # Replace with function body.

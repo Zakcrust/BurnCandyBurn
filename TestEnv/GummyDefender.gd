@@ -30,13 +30,16 @@ func _process(delta):
 
 
 func _check_player_position() -> void:
+	print("player position : %s" % ply.global_position.x)
+	print("position : %s" % global_position.x)
 	if ply.global_position.x > global_position.x:
+		$Body.scale.x = 1
+		print(scale.x)
 		speed = abs(speed)
-		scale.x = 1
 	else:
-		speed = -speed
-		scale.x = -1
-		
+		$Body.scale.x = -1
+		print(scale.x)
+		speed = -1 * speed
 
 
 func _on_VisibilityNotifier2D_screen_exited():
