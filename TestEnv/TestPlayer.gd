@@ -14,10 +14,10 @@ var dash_speed : float = 800
 var rotation_to_mouse : float
 
 var weapon_list = {
-	"flame_pistol" : load("").new(),
-	"flamethrower" : load("").new(),
-	"napalm" : load("").new(),
-	"shield" : load("").new()
+	"flame_pistol" : load("res://Scripts/Weapon/FlamePistol.gd").new(),
+	"flamethrower" : load("res://Scripts/Weapon/Flamethrower.gd").new(),
+	"napalm" : load("res://Scripts/Weapon/Napalm.gd").new(),
+#	"shield" : load("").new()
 }
 
 

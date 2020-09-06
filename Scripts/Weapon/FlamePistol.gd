@@ -1,6 +1,6 @@
 extends Weapon
 
-var bullet_path : String = ""
+var bullet_path : String = "res://TestEnv/TestBullet.tscn"
 
 var bullet : PackedScene = load(bullet_path)
 
