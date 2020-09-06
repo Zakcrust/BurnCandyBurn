@@ -1,0 +1,8 @@
+[gd_resource type="AtlasTexture" load_steps=2 format=2]
+
+[sub_resource type="StreamTexture" id=1]
+load_path = "res://.import/GUM lengkap.png-c9b11c01d69fc7f4f3da6f1429f278e6.stex"
+
+[resource]
+atlas = SubResource( 1 )
+region = Rect2( 850, 118, 137, 95 )
