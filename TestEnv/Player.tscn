@@ -23,6 +23,16 @@ animations = [ {
 "name": "idle",
 "speed": 5.0
 }, {
+"frames": [ ExtResource( 13 ), ExtResource( 12 ) ],
+"loop": true,
+"name": "shield",
+"speed": 5.0
+}, {
+"frames": [ ExtResource( 11 ) ],
+"loop": true,
+"name": "jump",
+"speed": 5.0
+}, {
 "frames": [ ExtResource( 14 ), ExtResource( 10 ) ],
 "loop": true,
 "name": "death",
@@ -33,20 +43,10 @@ animations = [ {
 "name": "dash",
 "speed": 5.0
 }, {
-"frames": [ ExtResource( 11 ) ],
-"loop": true,
-"name": "jump",
-"speed": 5.0
-}, {
 "frames": [ ExtResource( 8 ), ExtResource( 9 ), ExtResource( 7 ), ExtResource( 9 ) ],
 "loop": true,
 "name": "walk",
 "speed": 7.0
-}, {
-"frames": [ ExtResource( 13 ), ExtResource( 12 ) ],
-"loop": true,
-"name": "shield",
-"speed": 5.0
 } ]
 
 [sub_resource type="RectangleShape2D" id=2]

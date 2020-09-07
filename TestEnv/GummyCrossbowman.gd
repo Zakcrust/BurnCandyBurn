@@ -31,16 +31,16 @@ func _process(delta):
 				_attack_player()
 
 func _aim_at_player():
-#	$Hand.rotation = (global_position - ply.global_position).angle()
-	$Hand.look_at(ply.position)
+	$Body/Hand.rotation = (global_position - ply.global_position).angle()
+#	$Body/Hand.look_at(ply.position)
 
 
 func _attack_player():
 	attack_cooldown = true
 	$AttackCooldown.start()
 	var new_bolt = crossbow_bolt.instance()
-	new_bolt.position = $Hand/BulletSpawnPos.global_position
-	new_bolt.set_bullet_rotation($Hand.rotation)
+	new_bolt.position = $Body/Hand/BulletSpawnPos.global_position
+	new_bolt.set_bullet_rotation($Body/Hand.rotation)
 	get_parent().get_parent().add_child(new_bolt)
 	
 
@@ -52,11 +52,12 @@ func _on_PlayerDetector_body_entered(body):
 
 func _face_to_player():
 	if ply.global_position.x < global_position.x:
-		$Body.flip_h = true
-		$Hand.flip_h = true
-	else:
 		$Body.flip_h = false
-		$Hand.flip_h = false
+		$Body/Hand.flip_v = false
+	else:
+		$Body.flip_h = true
+		$Body/Hand.flip_v = true
+		
 
 
 func _on_AttackCooldown_timeout():
