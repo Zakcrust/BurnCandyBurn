@@ -19,25 +19,31 @@ animations = [ {
 "speed": 5.0
 }, {
 "frames": [ ExtResource( 10 ), ExtResource( 11 ) ],
-"loop": true,
+"loop": false,
 "name": "death",
-"speed": 5.0
+"speed": 10.0
 }, {
 "frames": [ ExtResource( 8 ), ExtResource( 4 ) ],
 "loop": false,
-"name": "attack",
+"name": "dash",
 "speed": 5.0
 }, {
 "frames": [ ExtResource( 7 ), ExtResource( 9 ), ExtResource( 7 ), ExtResource( 6 ) ],
 "loop": true,
 "name": "move",
 "speed": 5.0
+}, {
+"frames": [ ExtResource( 4 ) ],
+"loop": true,
+"name": "init_dash",
+"speed": 5.0
 } ]
+
+[sub_resource type="RectangleShape2D" id=3]
+extents = Vector2( 150, 10 )
 
 [sub_resource type="RectangleShape2D" id=2]
 extents = Vector2( 32, 47.5493 )
-
-[sub_resource type="RectangleShape2D" id=3]
 
 [node name="GummyDefender" type="KinematicBody2D"]
 collision_layer = 2
@@ -46,7 +52,14 @@ script = ExtResource( 2 )
 
 [node name="Body" type="AnimatedSprite" parent="."]
 frames = SubResource( 1 )
-animation = "idle"
+animation = "init_dash"
+playing = true
+
+[node name="DashPoint" type="Area2D" parent="Body"]
+position = Vector2( -190.006, -0.105498 )
+
+[node name="DashCollider" type="CollisionShape2D" parent="Body/DashPoint"]
+shape = SubResource( 3 )
 
 [node name="Collider" type="CollisionShape2D" parent="."]
 shape = SubResource( 2 )
@@ -58,12 +71,15 @@ one_shot = true
 
 [node name="PlayerDetector" parent="." instance=ExtResource( 3 )]
 
-[node name="DashPoint" type="Area2D" parent="."]
-position = Vector2( -163.006, -0.105498 )
+[node name="DashTimer" type="Timer" parent="."]
+one_shot = true
 
-[node name="DashCollider" type="CollisionShape2D" parent="DashPoint"]
-shape = SubResource( 3 )
+[node name="DashCoolDown" type="Timer" parent="."]
+wait_time = 3.0
+one_shot = true
+[connection signal="body_entered" from="Body/DashPoint" to="." method="_on_DashPoint_body_entered"]
 [connection signal="screen_exited" from="VisibilityNotifier2D" to="." method="_on_VisibilityNotifier2D_screen_exited"]
 [connection signal="timeout" from="IdleTimer" to="." method="_on_IdleTimer_timeout"]
 [connection signal="body_entered" from="PlayerDetector" to="." method="_on_PlayerDetector_body_entered"]
-[connection signal="body_entered" from="DashPoint" to="." method="_on_DashPoint_body_entered"]
+[connection signal="timeout" from="DashTimer" to="." method="_on_DashTimer_timeout"]
+[connection signal="timeout" from="DashCoolDown" to="." method="_on_DashCoolDown_timeout"]

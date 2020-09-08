@@ -1,6 +1,4 @@
-extends KinematicBody2D
-
-
+extends EnemyStat
 
 var velocity : Vector2 = Vector2()
 var GRAVITY : float = 1000
@@ -10,11 +8,16 @@ var state = IDLE
 
 onready var crossbow_bolt : PackedScene = load("res://TestEnv/CrossbowBolt.tscn")
 
+signal send_bullet(obj, obj_position, obj_rotation)
+
 enum {
 	IDLE,
 	ATTACKING
 }
 
+
+func _init().(4, 0):
+	pass
 
 func _process(delta):
 	velocity.x = 0
@@ -41,7 +44,7 @@ func _attack_player():
 	var new_bolt = crossbow_bolt.instance()
 	new_bolt.position = $Body/Hand/BulletSpawnPos.global_position
 	new_bolt.set_bullet_rotation($Body/Hand.rotation)
-	get_parent().get_parent().add_child(new_bolt)
+	emit_signal("send_bullet", new_bolt, $Body/Hand/BulletSpawnPos.global_position, $Body/Hand.global_rotation)
 	
 
 func _on_PlayerDetector_body_entered(body):

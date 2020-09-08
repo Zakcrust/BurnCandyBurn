@@ -1,8 +1,11 @@
-[gd_scene load_steps=15 format=2]
+[gd_scene load_steps=18 format=2]
 
 [ext_resource path="res://Assets/environtment.png" type="Texture" id=1]
 [ext_resource path="res://TestEnv/Player.tscn" type="PackedScene" id=2]
 [ext_resource path="res://Scripts/World/Level1.gd" type="Script" id=3]
+[ext_resource path="res://Scene/World/BulletPool.tscn" type="PackedScene" id=4]
+[ext_resource path="res://Scene/World/Spawner.tscn" type="PackedScene" id=5]
+[ext_resource path="res://TestEnv/GummyDefender.tscn" type="PackedScene" id=7]
 
 [sub_resource type="TileSet" id=1]
 0/name = "environtment.png 0"
@@ -414,7 +417,7 @@ position = Vector2( 0, -198 )
 tile_set = SubResource( 6 )
 cell_size = Vector2( 16, 16 )
 format = 1
-tile_data = PoolIntArray( 589888, 12, 0, 589895, 12, 0, 589909, 12, 0, 589923, 12, 0, 589937, 12, 0, 917568, 3, 0, 983052, 2, 0, 983110, 13, 0, 983149, 13, 0, 983206, 7, 0, 1769467, 1, 0, 2621509, 15, 0, 2621514, 15, 0, 2621569, 15, 0, 2621573, 15, 0, 2818038, 4, 0, 2752517, 4, 0, 2752532, 4, 0, 2752547, 4, 0, 2752673, 4, 0, 2752699, 10, 0, 2752705, 10, 0, 2752711, 10, 0, 2949118, 0, 0, 2883588, 0, 0, 2883594, 0, 0, 2883600, 0, 0, 2883606, 0, 0, 2883612, 0, 0, 2883618, 0, 0, 2883624, 0, 0, 2883625, 0, 0, 2883631, 0, 0, 2883637, 0, 0, 2883643, 0, 0, 2883649, 0, 0, 2883655, 0, 0, 2883661, 0, 0, 2883667, 0, 0, 2883673, 0, 0, 2883679, 0, 0, 2883685, 0, 0, 2883691, 0, 0, 2883697, 0, 0, 2883703, 0, 0, 2883709, 0, 0, 2883715, 0, 0, 2883721, 0, 0, 2883727, 0, 0, 2883733, 0, 0, 2883739, 0, 0, 2883745, 0, 0, 2883751, 0, 0, 2883757, 0, 0, 2883763, 0, 0, 2883769, 0, 0, 2883775, 0, 0, 2883777, 0, 0, 2883781, 0, 0, 2883787, 0, 0, 2883793, 0, 0, 2883799, 0, 0, 2883805, 0, 0, 2883811, 0, 0 )
+tile_data = PoolIntArray( 589888, 12, 0, 589895, 12, 0, 589909, 12, 0, 589923, 12, 0, 589937, 12, 0, 917568, 3, 0, 983052, 2, 0, 983110, 13, 0, 983149, 13, 0, 983206, 7, 0, 1769467, 1, 0, 2621509, 15, 0, 2621514, 15, 0, 2621569, 15, 0, 2621573, 15, 0, 2818038, 4, 0, 2752517, 4, 0, 2752532, 4, 0, 2752547, 4, 0, 2752673, 4, 0, 2752699, 10, 0, 2752705, 10, 0, 2752711, 10, 0, 2949100, 0, 0, 2949106, 0, 0, 2949112, 0, 0, 2949118, 0, 0, 2883588, 0, 0, 2883594, 0, 0, 2883600, 0, 0, 2883606, 0, 0, 2883612, 0, 0, 2883618, 0, 0, 2883624, 0, 0, 2883625, 0, 0, 2883631, 0, 0, 2883637, 0, 0, 2883643, 0, 0, 2883649, 0, 0, 2883655, 0, 0, 2883661, 0, 0, 2883667, 0, 0, 2883673, 0, 0, 2883679, 0, 0, 2883685, 0, 0, 2883691, 0, 0, 2883697, 0, 0, 2883703, 0, 0, 2883709, 0, 0, 2883715, 0, 0, 2883721, 0, 0, 2883727, 0, 0, 2883733, 0, 0, 2883739, 0, 0, 2883745, 0, 0, 2883751, 0, 0, 2883757, 0, 0, 2883763, 0, 0, 2883769, 0, 0, 2883775, 0, 0, 2883777, 0, 0, 2883781, 0, 0, 2883787, 0, 0, 2883793, 0, 0, 2883799, 0, 0, 2883805, 0, 0, 2883811, 0, 0 )
 
 [node name="obs" type="TileMap" parent="."]
 position = Vector2( -77, 18 )
@@ -438,18 +441,28 @@ limit_bottom = 600
 limit_smoothed = true
 smoothing_enabled = true
 
-[node name="nyobaPindah" type="Area2D" parent="."]
+[node name="ToRoom2" type="Area2D" parent="."]
 position = Vector2( 1024, 500 )
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="nyobaPindah"]
+[node name="CollisionShape2D" type="CollisionShape2D" parent="ToRoom2"]
 position = Vector2( 0, -43 )
 shape = SubResource( 11 )
 
-[node name="nyobaPindah2" type="Area2D" parent="."]
+[node name="ToRoom3" type="Area2D" parent="."]
 position = Vector2( 2048, 500 )
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="nyobaPindah2"]
+[node name="CollisionShape2D" type="CollisionShape2D" parent="ToRoom3"]
 position = Vector2( 0, -43 )
 shape = SubResource( 11 )
-[connection signal="body_entered" from="nyobaPindah" to="." method="_on_nyobaPindah_body_entered"]
-[connection signal="body_entered" from="nyobaPindah2" to="." method="_on_nyobaPindah2_body_entered"]
+
+[node name="BulletPool" parent="." instance=ExtResource( 4 )]
+
+[node name="Spawner" parent="." instance=ExtResource( 5 )]
+enemy_pool = ExtResource( 7 )
+
+[node name="Spawner2" parent="." instance=ExtResource( 5 )]
+position = Vector2( -115.528, 426.955 )
+enemy_pool = ExtResource( 7 )
+[connection signal="send_bullet" from="Player" to="BulletPool" method="_on_Player_send_bullet"]
+[connection signal="body_entered" from="ToRoom2" to="." method="_on_ToRoom2_body_entered"]
+[connection signal="body_entered" from="ToRoom3" to="." method="_on_ToRoom3_body_entered"]

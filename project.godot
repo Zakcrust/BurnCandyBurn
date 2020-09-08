@@ -10,6 +10,11 @@ config_version=4
 
 _global_script_classes=[ {
 "base": "KinematicBody2D",
+"class": "EnemyStat",
+"language": "GDScript",
+"path": "res://Scripts/EnemyStats/Base/EnemyStat.gd"
+}, {
+"base": "KinematicBody2D",
 "class": "Player",
 "language": "GDScript",
 "path": "res://TestEnv/TestPlayer.gd"
@@ -20,6 +25,7 @@ _global_script_classes=[ {
 "path": "res://Scripts/Weapon/Weapon.gd"
 } ]
 _global_script_class_icons={
+"EnemyStat": "",
 "Player": "",
 "Weapon": ""
 }
@@ -27,7 +33,7 @@ _global_script_class_icons={
 [application]
 
 config/name="BurnCandyBurnGodot"
-run/main_scene="res://TestEnv/MainTest.tscn"
+run/main_scene="res://Scene/World/Level1.tscn"
 config/icon="res://icon.png"
 
 [input]
@@ -67,9 +73,14 @@ flamethrower={
 "events": [ Object(InputEventKey,"resource_local_to_scene":false,"resource_name":"","device":0,"alt":false,"shift":false,"control":false,"meta":false,"command":false,"pressed":false,"scancode":50,"unicode":0,"echo":false,"script":null)
  ]
 }
-napalm_launcher={
+napalm={
 "deadzone": 0.5,
 "events": [ Object(InputEventKey,"resource_local_to_scene":false,"resource_name":"","device":0,"alt":false,"shift":false,"control":false,"meta":false,"command":false,"pressed":false,"scancode":51,"unicode":0,"echo":false,"script":null)
+ ]
+}
+shield={
+"deadzone": 0.5,
+"events": [ Object(InputEventKey,"resource_local_to_scene":false,"resource_name":"","device":0,"alt":false,"shift":false,"control":false,"meta":false,"command":false,"pressed":false,"scancode":83,"unicode":0,"echo":false,"script":null)
  ]
 }
 
