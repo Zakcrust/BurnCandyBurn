@@ -7,7 +7,7 @@ var weapon_image_path : String = ""
 var weapon_damage : float = 0
 var weapon_defense : float = 0
 
-func _init(wp_name = "", wp_path = "", wp_damage = "", wp_damage = 0.0, wp_defense = 0.0):
+func _init(wp_name = "", wp_path = "", wp_damages = "", wp_damage = 0.0, wp_defense = 0.0):
 	weapon_name = wp_name
 	weapon_image_path = wp_path
 	weapon_damage = wp_damage
