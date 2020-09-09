@@ -31,6 +31,11 @@ animations = [ {
 "name": "jump",
 "speed": 5.0
 }, {
+"frames": [ ExtResource( 6 ), ExtResource( 5 ) ],
+"loop": false,
+"name": "dash",
+"speed": 5.0
+}, {
 "frames": [ ExtResource( 14 ), ExtResource( 10 ) ],
 "loop": true,
 "name": "death",
@@ -41,32 +46,22 @@ animations = [ {
 "name": "walk",
 "speed": 7.0
 }, {
-"frames": [ ExtResource( 6 ), ExtResource( 5 ) ],
-"loop": false,
-"name": "dash",
-"speed": 5.0
-}, {
 "frames": [ ExtResource( 13 ), ExtResource( 12 ) ],
 "loop": true,
 "name": "shield",
 "speed": 5.0
 } ]
 
-[sub_resource type="SpriteFrames" id=5]
+[sub_resource type="SpriteFrames" id=2]
 animations = [ {
-"frames": [ ExtResource( 13 ), ExtResource( 12 ) ],
-"loop": true,
-"name": "shield",
-"speed": 10.0
+"frames": [ ExtResource( 17 ) ],
+"loop": false,
+"name": "napalm",
+"speed": 5.0
 }, {
 "frames": [ ExtResource( 1 ) ],
 "loop": false,
 "name": "flame_pistol",
-"speed": 5.0
-}, {
-"frames": [ ExtResource( 18 ) ],
-"loop": true,
-"name": "shield_idle",
 "speed": 5.0
 }, {
 "frames": [ ExtResource( 16 ) ],
@@ -74,16 +69,21 @@ animations = [ {
 "name": "flamethrower",
 "speed": 5.0
 }, {
-"frames": [ ExtResource( 17 ) ],
-"loop": false,
-"name": "napalm",
+"frames": [ ExtResource( 18 ) ],
+"loop": true,
+"name": "shield_idle",
 "speed": 5.0
+}, {
+"frames": [ ExtResource( 13 ), ExtResource( 12 ) ],
+"loop": true,
+"name": "shield",
+"speed": 10.0
 } ]
 
-[sub_resource type="RectangleShape2D" id=2]
+[sub_resource type="RectangleShape2D" id=3]
 extents = Vector2( 8, 32 )
 
-[sub_resource type="RectangleShape2D" id=3]
+[sub_resource type="RectangleShape2D" id=4]
 extents = Vector2( 8, 32 )
 
 [node name="Player" type="KinematicBody2D"]
@@ -95,19 +95,18 @@ frames = SubResource( 1 )
 animation = "idle"
 
 [node name="Hand" type="AnimatedSprite" parent="Body"]
-position = Vector2( -10.45, -16.3 )
+position = Vector2( -9.60326, -15.8173 )
 rotation = -0.0457078
 z_index = 1
-frames = SubResource( 5 )
-animation = "shield_idle"
-offset = Vector2( 15, 10 )
-
-[node name="BulletSpawner" type="Node2D" parent="Body/Hand"]
-position = Vector2( 37.5675, 10.8098 )
+frames = SubResource( 2 )
+animation = "flame_pistol"
+offset = Vector2( 15, 5 )
 
 [node name="FlameThrower" parent="Body/Hand" instance=ExtResource( 4 )]
 position = Vector2( 37.5675, 10.8098 )
-scale = Vector2( 3, 3 )
+
+[node name="BulletSpawner" type="Node2D" parent="Body/Hand"]
+position = Vector2( 40.9756, 1.95628 )
 
 [node name="Head" type="Sprite" parent="Body"]
 position = Vector2( 0, -41 )
@@ -115,7 +114,7 @@ texture = ExtResource( 15 )
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 position = Vector2( 0, -5 )
-shape = SubResource( 2 )
+shape = SubResource( 3 )
 
 [node name="DashTimer" type="Timer" parent="."]
 wait_time = 0.2
@@ -128,7 +127,7 @@ one_shot = true
 
 [node name="Collider" type="CollisionShape2D" parent="HurtBox"]
 position = Vector2( 0, -5 )
-shape = SubResource( 3 )
+shape = SubResource( 4 )
 
 [node name="FlamePistolCooldown" type="Timer" parent="."]
 wait_time = 0.2

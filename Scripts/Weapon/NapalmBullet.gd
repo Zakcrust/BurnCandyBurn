@@ -2,7 +2,7 @@ extends Area2D
 
 var bullet_speed : float = 450
 var bullet_rotation : float
-var GRAVITY : float = 450
+var GRAVITY : float = 100
 
 func set_bullet_rotation(value : float) -> void:
 	bullet_rotation = value

@@ -44,6 +44,7 @@ enum {
 
 signal send_bullet(obj, obj_position, obj_rotation)
 
+
 var player_state = MOVE
 var weapon_state = FLAME_PISTOL
 var dash_direction : Vector2
@@ -164,7 +165,7 @@ func _gun_control(_delta):
 func _weapon_slot_control():
 	if Input.is_action_just_pressed("flame_pistol"):
 		selected_weapon = "flame_pistol"
-		$Body/Hand.play("selected_pistol")
+		$Body/Hand.play("flame_pistol")
 	elif Input.is_action_just_pressed("flamethrower"):
 		selected_weapon = "flamethrower"
 		$Body/Hand.play("flamethrower")

@@ -1,4 +1,4 @@
-extends EnemyStat
+extends Enemy
 
 var velocity : Vector2 = Vector2()
 var GRAVITY : float = 1000

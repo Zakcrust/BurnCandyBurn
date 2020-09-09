@@ -1,6 +1,6 @@
 extends KinematicBody2D
 
-class_name EnemyStat
+class_name Enemy
 
 var health : int = 0 setget set_health,get_health
 var points : int = 0 setget set_points,get_points
@@ -14,6 +14,8 @@ func get_health() -> int:
 	
 func set_health(value : int) -> void:
 	health = value
+	if health <= 0:
+		queue_free()
 
 func get_points() -> int:
 	return points

@@ -14,3 +14,4 @@ func _on_GummyCrossbowman_send_bullet(obj, obj_position, obj_rotation):
 	obj.position = obj_position
 	obj.rotation = obj_rotation
 	add_child(obj)
+
