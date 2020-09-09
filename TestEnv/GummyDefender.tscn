@@ -23,11 +23,6 @@ animations = [ {
 "name": "move",
 "speed": 5.0
 }, {
-"frames": [ ExtResource( 8 ), ExtResource( 4 ) ],
-"loop": false,
-"name": "dash",
-"speed": 10.0
-}, {
 "frames": [ ExtResource( 10 ), ExtResource( 11 ) ],
 "loop": false,
 "name": "death",
@@ -37,6 +32,11 @@ animations = [ {
 "loop": true,
 "name": "init_dash",
 "speed": 5.0
+}, {
+"frames": [ ExtResource( 8 ), ExtResource( 4 ) ],
+"loop": false,
+"name": "dash",
+"speed": 10.0
 } ]
 
 [sub_resource type="RectangleShape2D" id=2]
@@ -46,7 +46,8 @@ extents = Vector2( 150, 10 )
 extents = Vector2( 32, 47.5493 )
 
 [node name="GummyDefender" type="KinematicBody2D"]
-collision_mask = 2
+collision_layer = 2
+collision_mask = 8
 script = ExtResource( 2 )
 
 [node name="Body" type="AnimatedSprite" parent="."]
