@@ -33,7 +33,7 @@ _global_script_class_icons={
 [application]
 
 config/name="BurnCandyBurnGodot"
-run/main_scene="res://Scene/World/Level1.tscn"
+run/main_scene="res://TestEnv/MainTest.tscn"
 config/icon="res://icon.png"
 
 [input]
@@ -92,6 +92,8 @@ shield={
 2d_physics/layer_2="Normal Enemies"
 2d_render/layer_3="BOSS"
 2d_physics/layer_3="BOSS"
+2d_render/layer_4="Bullet"
+2d_physics/layer_4="Bullet"
 
 [rendering]
 
