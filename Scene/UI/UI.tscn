@@ -303,9 +303,9 @@ rect_min_size = Vector2( 1024, 600 )
 
 [node name="bg" type="ColorRect" parent="pause/CenterContainer"]
 margin_left = 287.0
-margin_top = 74.0
+margin_top = 75.0
 margin_right = 737.0
-margin_bottom = 524.0
+margin_bottom = 525.0
 rect_min_size = Vector2( 450, 450 )
 rect_pivot_offset = Vector2( 150, 0 )
 color = Color( 0.431373, 0.00784314, 0.423529, 1 )
@@ -360,4 +360,5 @@ __meta__ = {
 autostart = true
 [connection signal="pressed" from="ui/pause" to="." method="_on_pause_pressed"]
 [connection signal="pressed" from="pause/CenterContainer/bg/resume" to="." method="_on_resume_pressed"]
+[connection signal="pressed" from="pause/CenterContainer/bg/exit" to="." method="_on_exit_pressed"]
 [connection signal="timeout" from="Timer" to="." method="_on_Timer_timeout"]

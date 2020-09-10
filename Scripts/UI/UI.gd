@@ -25,3 +25,7 @@ func _on_pause_pressed():
 func _on_resume_pressed():
 	$pause.visible = false
 	get_tree().paused = false
+
+
+func _on_exit_pressed():
+	get_tree().change_scene("res://Scene/Menu/mainMenu.tscn")
