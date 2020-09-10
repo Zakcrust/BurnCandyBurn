@@ -110,6 +110,7 @@ func _on_AttackPropagate_timeout():
 func _check_attack_count() -> void:
 	if attack_counter >= 3:
 		attack_counter = 0
+		attacking = true
 		$ToSlam.start()
 
 
