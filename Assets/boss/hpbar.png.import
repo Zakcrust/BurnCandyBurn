@@ -1,0 +1,17 @@
+[remap]
+
+importer="texture_atlas"
+type="Texture"
+path="res://.import/hpbar.png-04703edf2d729a362b96bcecb50ef3af.res"
+group_file="res://Assets/atlas/hp.png"
+valid=true
+[deps]
+
+
+source_file="res://Assets/boss/hpbar.png"
+dest_files=[ "res://.import/hpbar.png-04703edf2d729a362b96bcecb50ef3af.res" ]
+
+[params]
+
+atlas_file="res://Assets/atlas/hp.png"
+import_mode=0
