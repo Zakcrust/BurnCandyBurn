@@ -2,9 +2,11 @@ extends Node2D
 
 
 export (int) var maximum_spawn_pool
+export (int) var maximum_wave
+
 
 var spawned_enemy : int = 0
-
+var wave_count : int = 0
 var spawners_count : int
 
 
@@ -29,9 +31,14 @@ func _on_SpawnPoint2_enemy_cleared():
 func check_active_spawner() -> void:
 	print("active spawers : %s" % spawners_count)
 	if spawners_count <= 0:
-		set_process(false)
-		emit_signal("enemies_cleared")
-		queue_free()
+		if wave_count >= maximum_wave:
+			set_process(false)
+			emit_signal("enemies_cleared")
+			queue_free()
+		else:
+			spawners_count = 0
+			wave_count+= 1
+			start_spawners()
 
 
 func _on_SpawnPoint3_enemy_cleared():

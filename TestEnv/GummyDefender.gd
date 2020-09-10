@@ -4,11 +4,14 @@ extends Enemy
 var speed : float = 200
 var velocity : Vector2 = Vector2()
 var GRAVITY : float = 1000
-var dash_speed : float = 300
+var dash_speed : float = 400
 var dash_direction : Vector2
 var state = IDLE
 var ply : KinematicBody2D
 
+var current_health : int setget set_current_health, get_current_health
+
+var dead : bool = false
 
 enum {
 	IDLE,
@@ -20,8 +23,35 @@ enum {
 
 
 func _init().(4, 0):
-	pass
+	current_health = health
 
+func is_dead() -> bool:
+	return dead
+
+
+func set_current_health(value : int) -> void:
+	current_health = value
+	if current_health <= 0:
+		dead = true
+		get_parent().report_dead()
+		$Body.play("death")
+		state = DEATH
+		set_process(false)
+		$Body/DashPoint/DashCollider.call_deferred("set_disabled", true)
+		$Collider.call_deferred("set_disabled", true)
+		$DashTimer.stop()
+		$DashCoolDown.stop()
+		$DashInit.stop()
+		$Body/SpearPoint.monitoring = false
+		$Body/DashPoint.monitoring = false
+		
+
+func get_current_health() -> int:
+	return current_health
+
+func _ready():
+	$IdleTimer.autostart = true
+	$Body/SpearPoint/SpearCollider.disabled = true
 
 func _process(delta):
 	velocity.x = 0
@@ -51,7 +81,6 @@ func _check_player_position() -> void:
 
 func _on_VisibilityNotifier2D_screen_exited():
 	state = IDLE
-	$IdleTimer.autostart = true
 	$IdleTimer.start()
 
 
@@ -78,19 +107,30 @@ func _on_DashPoint_body_entered(body):
 			dash_direction = Vector2.RIGHT
 		$Body.play("init_dash")
 		state = INIT_DASH
+		$Body/DashPoint/DashCollider.call_deferred("set_disabled", true)
 		$DashInit.start()
 
 
 func _on_DashTimer_timeout():
+	$Body/SpearPoint/SpearCollider.call_deferred("set_disabled", true)
 	state = IDLE
 	$DashCoolDown.start()
 
 
 func _on_DashCoolDown_timeout():
 	state = MOVE
+	$Body/DashPoint/DashCollider.call_deferred("set_disabled", false)
 
 
 func _on_DashInit_timeout():
+	$Body/SpearPoint/SpearCollider.call_deferred("set_disabled", false)
 	$Body.play("dash")
 	state = DASH
 	$DashTimer.start()
+
+
+func _on_SpearPoint_body_entered(body):
+	if body is Player:
+		print("hit player")
+		body.hit()
+	

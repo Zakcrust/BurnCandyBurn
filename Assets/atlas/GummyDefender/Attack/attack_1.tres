@@ -1,8 +1,8 @@
 [gd_resource type="AtlasTexture" load_steps=2 format=2]
 
-[ext_resource path="res://Assets/atlas/bear.png" type="Texture" id=1]
+[ext_resource path="res://Assets/defender apdet.png" type="Texture" id=1]
 
 [resource]
-flags = 4
+flags = 1
 atlas = ExtResource( 1 )
-region = Rect2( 150, 119, 75, 97 )
+region = Rect2( 20, 10, 95, 99 )

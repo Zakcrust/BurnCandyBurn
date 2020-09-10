@@ -10,7 +10,7 @@ var velocity : Vector2 = Vector2()
 
 var GRAVITY : float = 1000
 
-var speed : float = 300
+var speed : float = 200
 var jump_speed : float = 500
 var dash_speed : float = 800
 var rotation_to_mouse : float
@@ -67,6 +67,8 @@ func _process(delta):
 func _player_input(delta):
 	velocity.x = 0
 	match(player_state):
+		DEAD:
+			return
 		MOVE:
 			if Input.is_action_pressed("move_left"):
 				velocity.x = -speed
@@ -80,6 +82,7 @@ func _player_input(delta):
 				return
 			if Input.is_action_just_pressed("dash") and !is_dash_cooldown:
 				$Body.play("dash")
+				$Body/DashParticles/Particles2D.emitting = true
 				player_state = DASH
 				if velocity.x < 0:
 					dash_direction = Vector2.LEFT
@@ -150,12 +153,7 @@ func _gun_control(_delta):
 				weapon_cooldown = true
 			"flamethrower":
 				$Body/Hand/FlameThrower.set_burn(true)
-			"napalm":
-				var new_bullet = napalm_bullet.instance()
-				if $Body.scale.x == 1:
-					emit_signal("send_bullet", new_bullet, $Body/Hand/BulletSpawner.global_position, $Body/Hand.global_rotation)
-				else:
-					emit_signal("send_bullet", new_bullet, $Body/Hand/BulletSpawner.global_position, -$Body/Hand.global_rotation)
+				$Body/Hand/FlameThrower.burn_routine()
 	if Input.is_action_just_released("fire"):
 		match(selected_weapon):
 			"flamethrower":
@@ -169,9 +167,6 @@ func _weapon_slot_control():
 	elif Input.is_action_just_pressed("flamethrower"):
 		selected_weapon = "flamethrower"
 		$Body/Hand.play("flamethrower")
-	elif Input.is_action_just_pressed("napalm"):
-		selected_weapon = "napalm"
-		$Body/Hand.play("napalm")
 
 
 
@@ -196,6 +191,22 @@ func dead() -> void:
 	player_state = DEAD
 
 
+func hit() -> void:
+	if  not $DyingFlame/Particles2D.emitting:
+		player_state = DEAD
+		$Body.play("idle")
+		$DyingFlame/Particles2D.emitting = true
+		$CollisionShape2D.call_deferred("set_disabled", true)
+		$DyingTimer.start()
+		Input.action_release("fire")
+
 
 func _on_FlamePistolCooldown_timeout():
 	weapon_cooldown = false
+
+
+func _on_DyingTimer_timeout():
+	$FlamingDeath.revive()
+	yield(get_tree().create_timer(1.0), "timeout")
+	$CollisionShape2D.call_deferred("set_disabled", false)
+	player_state = MOVE

@@ -1,5 +1,6 @@
-[gd_scene load_steps=14 format=2]
+[gd_scene load_steps=16 format=2]
 
+[ext_resource path="res://Assets/atlas/GummyDefender/Death/death_2.tres" type="Texture" id=1]
 [ext_resource path="res://TestEnv/GummyDefender.gd" type="Script" id=2]
 [ext_resource path="res://TestEnv/PlayerDetector.tscn" type="PackedScene" id=3]
 [ext_resource path="res://Assets/atlas/GummyDefender/Attack/attack_1.tres" type="Texture" id=4]
@@ -18,41 +19,46 @@ animations = [ {
 "name": "idle",
 "speed": 5.0
 }, {
+"frames": [ ExtResource( 8 ), ExtResource( 4 ) ],
+"loop": false,
+"name": "dash",
+"speed": 10.0
+}, {
+"frames": [ ExtResource( 11 ), ExtResource( 10 ), ExtResource( 1 ) ],
+"loop": false,
+"name": "death",
+"speed": 10.0
+}, {
 "frames": [ ExtResource( 7 ), ExtResource( 9 ), ExtResource( 7 ), ExtResource( 6 ) ],
 "loop": true,
 "name": "move",
 "speed": 5.0
 }, {
-"frames": [ ExtResource( 10 ), ExtResource( 11 ) ],
-"loop": false,
-"name": "death",
-"speed": 10.0
-}, {
 "frames": [ ExtResource( 4 ) ],
 "loop": true,
 "name": "init_dash",
 "speed": 5.0
-}, {
-"frames": [ ExtResource( 8 ), ExtResource( 4 ) ],
-"loop": false,
-"name": "dash",
-"speed": 10.0
 } ]
 
 [sub_resource type="RectangleShape2D" id=2]
 extents = Vector2( 150, 10 )
 
 [sub_resource type="RectangleShape2D" id=3]
-extents = Vector2( 32, 47.5493 )
+extents = Vector2( 32.6477, 18.0418 )
 
-[node name="GummyDefender" type="KinematicBody2D"]
+[sub_resource type="RectangleShape2D" id=4]
+extents = Vector2( 17.7503, 43.3205 )
+
+[node name="GummyDefender" type="KinematicBody2D" groups=[
+"normal_enemies",
+]]
 collision_layer = 2
 collision_mask = 8
 script = ExtResource( 2 )
 
 [node name="Body" type="AnimatedSprite" parent="."]
 frames = SubResource( 1 )
-animation = "init_dash"
+animation = "idle"
 playing = true
 
 [node name="DashPoint" type="Area2D" parent="Body"]
@@ -61,27 +67,37 @@ position = Vector2( -190.006, -0.105498 )
 [node name="DashCollider" type="CollisionShape2D" parent="Body/DashPoint"]
 shape = SubResource( 2 )
 
-[node name="Collider" type="CollisionShape2D" parent="."]
+[node name="SpearPoint" type="Area2D" parent="Body"]
+
+[node name="SpearCollider" type="CollisionShape2D" parent="Body/SpearPoint"]
+position = Vector2( -14, 31 )
 shape = SubResource( 3 )
+
+[node name="Collider" type="CollisionShape2D" parent="."]
+position = Vector2( -2, 4 )
+shape = SubResource( 4 )
 
 [node name="VisibilityNotifier2D" type="VisibilityNotifier2D" parent="."]
 
 [node name="IdleTimer" type="Timer" parent="."]
+wait_time = 0.5
 one_shot = true
 
 [node name="PlayerDetector" parent="." instance=ExtResource( 3 )]
+position = Vector2( -0.469757, 0 )
 
 [node name="DashTimer" type="Timer" parent="."]
 one_shot = true
 
 [node name="DashCoolDown" type="Timer" parent="."]
-wait_time = 3.0
+wait_time = 1.5
 one_shot = true
 
 [node name="DashInit" type="Timer" parent="."]
 wait_time = 0.4
 one_shot = true
 [connection signal="body_entered" from="Body/DashPoint" to="." method="_on_DashPoint_body_entered"]
+[connection signal="body_entered" from="Body/SpearPoint" to="." method="_on_SpearPoint_body_entered"]
 [connection signal="screen_exited" from="VisibilityNotifier2D" to="." method="_on_VisibilityNotifier2D_screen_exited"]
 [connection signal="timeout" from="IdleTimer" to="." method="_on_IdleTimer_timeout"]
 [connection signal="body_entered" from="PlayerDetector" to="." method="_on_PlayerDetector_body_entered"]

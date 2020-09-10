@@ -4,6 +4,7 @@
 [ext_resource path="res://TestEnv/CrossbowBolt.gd" type="Script" id=2]
 
 [node name="CrossbowBolt" type="Node2D"]
+z_index = 2
 script = ExtResource( 2 )
 
 [node name="Body" type="Sprite" parent="."]

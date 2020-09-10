@@ -13,6 +13,7 @@ var dash_target : Vector2 = Vector2()
 var attack_counter : int = 0
 var attacking : bool = false
 
+var current_health : int = 0 setget set_current_health, get_current_health
 
 var shockwave_scene : PackedScene = load("res://Scene/Enemy/ShieldShockwave.tscn")
 var spear_scene : PackedScene = load("res://Scene/Enemy/Spear.tscn")
@@ -35,10 +36,17 @@ var state = IDLE
 func _init().(60, 0):
 	pass
 	
+func set_current_health(value : int) -> void:
+	current_health = value
+	if current_health <= 0:
+		queue_free()
+
+
+func get_current_health() -> int:
+	return current_health
 
 
 func _process(delta):
-	print("GUM State : %s" % state)
 	velocity.x = 0
 	velocity.y += GRAVITY * delta
 	
@@ -135,8 +143,12 @@ func _on_ShockWaveTimer_timeout():
 	left_shockwave.to_left()
 	var right_shockwave = shockwave_scene.instance()
 	right_shockwave.to_right()
-	emit_signal("add_shockwave", left_shockwave, $LeftWave.global_position)
-	emit_signal("add_shockwave", right_shockwave, $RightWave.global_position)
+	left_shockwave.position = $LeftWave.global_position
+	right_shockwave.position = $RightWave.global_position
+	get_tree().get_root().get_node("Stage1/BulletPool").add_child(left_shockwave)
+	get_tree().get_root().get_node("Stage1/BulletPool").add_child(right_shockwave)
+#	emit_signal("add_shockwave", left_shockwave, $LeftWave.global_position)
+#	emit_signal("add_shockwave", right_shockwave, $RightWave.global_position)
 
 
 func _on_ThrowingTimer_timeout():
@@ -145,7 +157,9 @@ func _on_ThrowingTimer_timeout():
 		new_spear.to_right()
 	else:
 		new_spear.to_left()
-	emit_signal("add_spear", new_spear, $Body/SpearPosition.global_position)
+	new_spear.position = $Body/SpearPosition.global_position
+	get_tree().get_root().get_node("Stage1/BulletPool").add_child(new_spear)
+#	emit_signal("add_spear", new_spear, $Body/SpearPosition.global_position)
 	$ThrowingDelay.start()
 
 
