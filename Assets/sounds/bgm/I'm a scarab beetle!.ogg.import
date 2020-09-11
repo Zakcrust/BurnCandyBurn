@@ -1,0 +1,15 @@
+[remap]
+
+importer="ogg_vorbis"
+type="AudioStreamOGGVorbis"
+path="res://.import/I'm a scarab beetle!.ogg-ee81f18a29b4af1b2c36f2f3e7dcd23a.oggstr"
+
+[deps]
+
+source_file="res://Assets/sounds/bgm/I'm a scarab beetle!.ogg"
+dest_files=[ "res://.import/I'm a scarab beetle!.ogg-ee81f18a29b4af1b2c36f2f3e7dcd23a.oggstr" ]
+
+[params]
+
+loop=true
+loop_offset=0

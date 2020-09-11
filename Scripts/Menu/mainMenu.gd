@@ -2,7 +2,7 @@ extends Control
 
 
 func _ready():
-	pass
+	MusicManager.play_bgm(MusicManager.sounds["bgm"]["game_play"])
 
 
 func _on_start_pressed():

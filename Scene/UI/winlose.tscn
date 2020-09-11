@@ -1,0 +1,281 @@
+[gd_scene load_steps=16 format=2]
+
+[ext_resource path="res://Assets/Fonts/ENDOR___.ttf" type="DynamicFontData" id=1]
+
+[sub_resource type="DynamicFont" id=1]
+extra_spacing_char = 5
+extra_spacing_space = 1
+font_data = ExtResource( 1 )
+
+[sub_resource type="DynamicFont" id=2]
+extra_spacing_char = 5
+extra_spacing_space = 1
+font_data = ExtResource( 1 )
+
+[sub_resource type="DynamicFont" id=3]
+size = 10
+use_mipmaps = true
+extra_spacing_char = 5
+extra_spacing_space = 1
+font_data = ExtResource( 1 )
+
+[sub_resource type="StyleBoxFlat" id=4]
+bg_color = Color( 0.937255, 0.670588, 0.901961, 1 )
+
+[sub_resource type="DynamicFont" id=5]
+size = 18
+font_data = ExtResource( 1 )
+
+[sub_resource type="StyleBoxFlat" id=11]
+bg_color = Color( 0.937255, 0.670588, 0.901961, 1 )
+
+[sub_resource type="DynamicFont" id=12]
+size = 18
+font_data = ExtResource( 1 )
+
+[sub_resource type="DynamicFont" id=6]
+extra_spacing_char = 5
+extra_spacing_space = 1
+font_data = ExtResource( 1 )
+
+[sub_resource type="DynamicFont" id=7]
+extra_spacing_char = 5
+extra_spacing_space = 1
+font_data = ExtResource( 1 )
+
+[sub_resource type="DynamicFont" id=8]
+size = 10
+use_mipmaps = true
+extra_spacing_char = 5
+extra_spacing_space = 1
+font_data = ExtResource( 1 )
+
+[sub_resource type="StyleBoxFlat" id=9]
+bg_color = Color( 0.937255, 0.670588, 0.901961, 1 )
+
+[sub_resource type="DynamicFont" id=10]
+size = 18
+font_data = ExtResource( 1 )
+
+[sub_resource type="StyleBoxFlat" id=13]
+bg_color = Color( 0.937255, 0.670588, 0.901961, 1 )
+
+[sub_resource type="DynamicFont" id=14]
+size = 18
+font_data = ExtResource( 1 )
+
+[node name="winlose" type="Control"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="lose" type="Control" parent="."]
+margin_right = 40.0
+margin_bottom = 40.0
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="CenterContainer" type="CenterContainer" parent="lose"]
+margin_right = 1020.0
+margin_bottom = 600.0
+__meta__ = {
+"_edit_lock_": true,
+"_edit_use_anchors_": false
+}
+
+[node name="ColorRect" type="ColorRect" parent="lose/CenterContainer"]
+margin_left = 360.0
+margin_top = 100.0
+margin_right = 660.0
+margin_bottom = 500.0
+rect_min_size = Vector2( 300, 400 )
+color = Color( 0.431373, 0.00784314, 0.423529, 1 )
+
+[node name="ColorRect" type="ColorRect" parent="lose"]
+margin_left = 384.0
+margin_top = 128.0
+margin_right = 640.0
+margin_bottom = 192.0
+color = Color( 0.156863, 0.0509804, 0.152941, 1 )
+__meta__ = {
+"_edit_lock_": true,
+"_edit_use_anchors_": false
+}
+
+[node name="Label" type="Label" parent="lose/ColorRect"]
+margin_right = 256.0
+margin_bottom = 64.0
+custom_fonts/font = SubResource( 1 )
+text = "YOU LOSE"
+align = 1
+valign = 1
+__meta__ = {
+"_edit_lock_": true
+}
+
+[node name="time" type="ColorRect" parent="lose"]
+margin_left = 424.0
+margin_top = 256.0
+margin_right = 600.0
+margin_bottom = 300.0
+color = Color( 0.156863, 0.0509804, 0.152941, 1 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Time" type="Label" parent="lose/time"]
+margin_right = 176.0
+margin_bottom = 44.0
+custom_fonts/font = SubResource( 2 )
+text = "00:00"
+align = 1
+valign = 1
+
+[node name="yurtime" type="Label" parent="lose"]
+margin_left = 384.0
+margin_top = 200.0
+margin_right = 640.0
+margin_bottom = 264.0
+custom_fonts/font = SubResource( 3 )
+custom_colors/font_color_shadow = Color( 0, 0, 0, 1 )
+text = "YOUR TIME"
+align = 1
+valign = 1
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="backtomenu" type="Button" parent="lose"]
+margin_left = 424.0
+margin_top = 408.0
+margin_right = 600.0
+margin_bottom = 480.0
+custom_styles/normal = SubResource( 4 )
+custom_fonts/font = SubResource( 5 )
+custom_colors/font_color_disabled = Color( 0, 0, 0, 1 )
+custom_colors/font_color = Color( 0, 0, 0, 1 )
+text = "Back To Menu"
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="tryagain" type="Button" parent="lose"]
+margin_left = 424.0
+margin_top = 320.0
+margin_right = 600.0
+margin_bottom = 392.0
+custom_styles/normal = SubResource( 11 )
+custom_fonts/font = SubResource( 12 )
+custom_colors/font_color_disabled = Color( 0, 0, 0, 1 )
+custom_colors/font_color = Color( 0, 0, 0, 1 )
+text = "Try Again"
+__meta__ = {
+"_editor_description_": ""
+}
+
+[node name="win" type="Control" parent="."]
+visible = false
+margin_right = 40.0
+margin_bottom = 40.0
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="CenterContainer" type="CenterContainer" parent="win"]
+margin_right = 1020.0
+margin_bottom = 600.0
+__meta__ = {
+"_edit_lock_": true,
+"_edit_use_anchors_": false
+}
+
+[node name="ColorRect" type="ColorRect" parent="win/CenterContainer"]
+margin_left = 360.0
+margin_top = 100.0
+margin_right = 660.0
+margin_bottom = 500.0
+rect_min_size = Vector2( 300, 400 )
+color = Color( 0.431373, 0.00784314, 0.423529, 1 )
+
+[node name="ColorRect" type="ColorRect" parent="win"]
+margin_left = 384.0
+margin_top = 120.0
+margin_right = 640.0
+margin_bottom = 192.0
+color = Color( 0.156863, 0.0509804, 0.152941, 1 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Label" type="Label" parent="win/ColorRect"]
+margin_top = 8.0
+margin_right = 256.0
+margin_bottom = 73.0
+custom_fonts/font = SubResource( 6 )
+text = "YOU WIN 
+ty for playing"
+align = 1
+valign = 1
+
+[node name="time" type="ColorRect" parent="win"]
+margin_left = 424.0
+margin_top = 256.0
+margin_right = 600.0
+margin_bottom = 300.0
+color = Color( 0.156863, 0.0509804, 0.152941, 1 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Time" type="Label" parent="win/time"]
+margin_right = 176.0
+margin_bottom = 44.0
+custom_fonts/font = SubResource( 7 )
+text = "00:00"
+align = 1
+valign = 1
+
+[node name="yurtime" type="Label" parent="win"]
+margin_left = 384.0
+margin_top = 200.0
+margin_right = 640.0
+margin_bottom = 264.0
+custom_fonts/font = SubResource( 8 )
+custom_colors/font_color_shadow = Color( 0, 0, 0, 1 )
+text = "YOUR TIME"
+align = 1
+valign = 1
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="backtomenu" type="Button" parent="win"]
+margin_left = 424.0
+margin_top = 416.0
+margin_right = 600.0
+margin_bottom = 488.0
+custom_styles/normal = SubResource( 9 )
+custom_fonts/font = SubResource( 10 )
+custom_colors/font_color_disabled = Color( 0, 0, 0, 1 )
+custom_colors/font_color = Color( 0, 0, 0, 1 )
+text = "Back To Menu"
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="playagain" type="Button" parent="win"]
+margin_left = 424.0
+margin_top = 320.0
+margin_right = 600.0
+margin_bottom = 392.0
+custom_styles/normal = SubResource( 13 )
+custom_fonts/font = SubResource( 14 )
+custom_colors/font_color_disabled = Color( 0, 0, 0, 1 )
+custom_colors/font_color = Color( 0, 0, 0, 1 )
+text = "Play Again"
+__meta__ = {
+"_editor_description_": ""
+}

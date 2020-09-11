@@ -5,6 +5,19 @@
 [ext_resource path="res://Assets/UI/sett.tres" type="Texture" id=3]
 [ext_resource path="res://Scripts/Menu/mainMenu.gd" type="Script" id=4]
 
+[sub_resource type="StyleBoxLine" id=1]
+color = Color( 1, 1, 1, 1 )
+grow_begin = 4.0
+grow_end = 4.0
+thickness = 3
+vertical = true
+
+[sub_resource type="StyleBoxFlat" id=2]
+bg_color = Color( 1, 1, 1, 0.235294 )
+
+[sub_resource type="StyleBoxFlat" id=3]
+bg_color = Color( 0.6, 0.6, 0.6, 0 )
+
 [sub_resource type="StyleBoxLine" id=4]
 color = Color( 1, 1, 1, 1 )
 grow_begin = 4.0
@@ -29,19 +42,6 @@ vertical = true
 bg_color = Color( 1, 1, 1, 0.235294 )
 
 [sub_resource type="StyleBoxFlat" id=9]
-bg_color = Color( 0.6, 0.6, 0.6, 0 )
-
-[sub_resource type="StyleBoxLine" id=1]
-color = Color( 1, 1, 1, 1 )
-grow_begin = 4.0
-grow_end = 4.0
-thickness = 3
-vertical = true
-
-[sub_resource type="StyleBoxFlat" id=3]
-bg_color = Color( 1, 1, 1, 0.235294 )
-
-[sub_resource type="StyleBoxFlat" id=2]
 bg_color = Color( 0.6, 0.6, 0.6, 0 )
 
 [node name="mainMenu" type="Control"]
@@ -75,9 +75,9 @@ margin_left = -216.0
 margin_top = -72.0
 margin_right = 176.0
 margin_bottom = 12.0
-custom_styles/hover = SubResource( 4 )
-custom_styles/pressed = SubResource( 5 )
-custom_styles/normal = SubResource( 6 )
+custom_styles/hover = SubResource( 1 )
+custom_styles/pressed = SubResource( 2 )
+custom_styles/normal = SubResource( 3 )
 __meta__ = {
 "_edit_use_anchors_": false,
 "_editor_description_": ""
@@ -95,9 +95,9 @@ margin_left = -120.0
 margin_top = -72.0
 margin_right = 88.0
 margin_bottom = 12.0
-custom_styles/hover = SubResource( 7 )
-custom_styles/pressed = SubResource( 8 )
-custom_styles/normal = SubResource( 9 )
+custom_styles/hover = SubResource( 4 )
+custom_styles/pressed = SubResource( 5 )
+custom_styles/normal = SubResource( 6 )
 __meta__ = {
 "_edit_use_anchors_": false,
 "_editor_description_": ""
@@ -117,9 +117,9 @@ margin_left = -136.0
 margin_top = -40.0
 margin_right = 128.0
 margin_bottom = 44.0
-custom_styles/hover = SubResource( 1 )
-custom_styles/pressed = SubResource( 3 )
-custom_styles/normal = SubResource( 2 )
+custom_styles/hover = SubResource( 7 )
+custom_styles/pressed = SubResource( 8 )
+custom_styles/normal = SubResource( 9 )
 __meta__ = {
 "_edit_use_anchors_": false
 }
