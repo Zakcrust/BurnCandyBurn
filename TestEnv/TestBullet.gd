@@ -1,8 +1,10 @@
 extends Node2D
 
 
-var bullet_speed : float = 900
+var bullet_speed : float = 300
 var bullet_rotation : float
+
+var hit_particle : PackedScene = load("res://Scene/Weapon/HitParticles.tscn")
 
 func set_bullet_rotation(value : float) -> void:
 	bullet_rotation = value
@@ -17,5 +19,8 @@ func _on_VisibilityNotifier2D_screen_exited():
 
 func _on_Bullet_body_entered(body):
 	if body is Enemy:
-		body.health = body.health - 1
+		body.current_health = body.current_health - 1
+		var _hit_particle = hit_particle.instance()
+		_hit_particle.position = global_position
+		get_parent().add_child(_hit_particle)
 		queue_free()

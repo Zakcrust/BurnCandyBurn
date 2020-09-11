@@ -39,7 +39,7 @@ func _on_ToRoom3_body_entered(body):
 		body.set_min_x_pos(1024*2)
 		body.set_max_x_pos(1024*3)
 		$ToRoom3/Collider.call_deferred("set_disabled", true)
-		$ToRoom3/CollisionShape2D.disabled = true
+		$Room3Spawner.start_spawners()
 
 
 func _on_Room1Spawner_enemies_cleared():

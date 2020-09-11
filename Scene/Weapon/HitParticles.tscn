@@ -1,0 +1,35 @@
+[gd_scene load_steps=3 format=2]
+
+[sub_resource type="GDScript" id=2]
+script/source = "extends Node2D
+
+func _ready():
+	print(\"particle spawned\")
+	$Particles2D.emitting = true
+	yield(get_tree().create_timer(0.2), \"timeout\")
+	queue_free()
+
+"
+
+[sub_resource type="ParticlesMaterial" id=1]
+flag_disable_z = true
+direction = Vector3( 1, 1, 0 )
+spread = 180.0
+gravity = Vector3( 9.8, -9.8, 0 )
+initial_velocity = 100.0
+initial_velocity_random = 1.0
+orbit_velocity = 0.0
+orbit_velocity_random = 0.0
+color = Color( 1, 0.533333, 0, 1 )
+
+[node name="HitParticles" type="Node2D"]
+scale = Vector2( 2, 2 )
+z_index = 1
+script = SubResource( 2 )
+
+[node name="Particles2D" type="Particles2D" parent="."]
+emitting = false
+amount = 200
+lifetime = 0.2
+one_shot = true
+process_material = SubResource( 1 )
