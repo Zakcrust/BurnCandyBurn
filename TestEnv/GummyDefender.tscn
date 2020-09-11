@@ -19,6 +19,11 @@ animations = [ {
 "name": "idle",
 "speed": 5.0
 }, {
+"frames": [ ExtResource( 4 ) ],
+"loop": true,
+"name": "init_dash",
+"speed": 5.0
+}, {
 "frames": [ ExtResource( 8 ), ExtResource( 4 ) ],
 "loop": false,
 "name": "dash",
@@ -33,11 +38,6 @@ animations = [ {
 "loop": true,
 "name": "move",
 "speed": 5.0
-}, {
-"frames": [ ExtResource( 4 ) ],
-"loop": true,
-"name": "init_dash",
-"speed": 5.0
 } ]
 
 [sub_resource type="RectangleShape2D" id=2]
@@ -47,7 +47,7 @@ extents = Vector2( 150, 10 )
 extents = Vector2( 32.6477, 18.0418 )
 
 [sub_resource type="RectangleShape2D" id=4]
-extents = Vector2( 17.7503, 43.3205 )
+extents = Vector2( 17, 43 )
 
 [node name="GummyDefender" type="KinematicBody2D" groups=[
 "normal_enemies",

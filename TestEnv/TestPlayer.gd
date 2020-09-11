@@ -6,6 +6,15 @@ export (PackedScene) var bullet
 
 onready var napalm_bullet : PackedScene = load("res://Scene/Weapon/NapalmBullet.tscn")
 
+var lives : int = 4
+
+
+signal update_ui_weapon(weapon)
+signal update_lives_ui(lives)
+signal update_flamethrower_ui(full)
+
+var flame_thrower_enabled : bool = false
+
 var velocity : Vector2 = Vector2()
 
 var GRAVITY : float = 1000
@@ -20,6 +29,8 @@ var max_x_pos : float = 1024
 
 
 var weapon_cooldown : bool = false
+
+var dying : bool = false
 
 var selected_weapon : String
 
@@ -45,10 +56,18 @@ enum {
 signal send_bullet(obj, obj_position, obj_rotation)
 
 
+
+
 var player_state = MOVE
 var weapon_state = FLAME_PISTOL
 var dash_direction : Vector2
 var is_dash_cooldown : bool = false
+
+var flame_power : int = 0
+
+
+func is_dying():
+	return dying
 
 func _ready():
 	$Body/Hand.play("flame_pistol")
@@ -68,7 +87,7 @@ func _player_input(delta):
 	velocity.x = 0
 	match(player_state):
 		DEAD:
-			return
+			pass
 		MOVE:
 			if Input.is_action_pressed("move_left"):
 				velocity.x = -speed
@@ -76,10 +95,10 @@ func _player_input(delta):
 				velocity.x = speed
 			if Input.is_action_pressed("jump") and is_on_floor():
 				velocity.y = -jump_speed
-			if Input.is_action_just_pressed("shield") and is_on_floor():
-				$Body/Hand.play("shield_idle")
-				player_state = SHIELD
-				return
+#			if Input.is_action_just_pressed("shield") and is_on_floor():
+#				$Body/Hand.play("shield_idle")
+#				player_state = SHIELD
+#				return
 			if Input.is_action_just_pressed("dash") and !is_dash_cooldown:
 				$Body.play("dash")
 				$Body/DashParticles/Particles2D.emitting = true
@@ -117,6 +136,7 @@ func _player_input(delta):
 				player_state = MOVE
 				$Body/Hand.play(selected_weapon)
 					
+	check_flame_power()
 	velocity.y += GRAVITY * delta
 	velocity.y = clamp(velocity.y, -jump_speed, GRAVITY)
 	velocity = move_and_slide(velocity, Vector2.UP)
@@ -150,8 +170,10 @@ func _gun_control(_delta):
 				else:
 					emit_signal("send_bullet", new_bullet, $Body/Hand/BulletSpawner.global_position, -$Body/Hand.global_rotation)
 				$FlamePistolCooldown.start()
+				flame_power += 1
 				weapon_cooldown = true
 			"flamethrower":
+				$FlameThrowerCycle.start()
 				$Body/Hand/FlameThrower.set_burn(true)
 				$Body/Hand/FlameThrower.burn_routine()
 	if Input.is_action_just_released("fire"):
@@ -163,10 +185,13 @@ func _gun_control(_delta):
 func _weapon_slot_control():
 	if Input.is_action_just_pressed("flame_pistol"):
 		selected_weapon = "flame_pistol"
+		emit_signal("update_ui_weapon", selected_weapon)
 		$Body/Hand.play("flame_pistol")
 	elif Input.is_action_just_pressed("flamethrower"):
-		selected_weapon = "flamethrower"
-		$Body/Hand.play("flamethrower")
+		if flame_thrower_enabled:
+			selected_weapon = "flamethrower"
+			emit_signal("update_ui_weapon", selected_weapon)
+			$Body/Hand.play("flamethrower")
 
 
 
@@ -192,11 +217,13 @@ func dead() -> void:
 
 
 func hit() -> void:
-	if  not $DyingFlame/Particles2D.emitting:
+	if  not $DyingFlame/Particles2D.emitting and not dying:
 		player_state = DEAD
 		$Body.play("idle")
 		$DyingFlame/Particles2D.emitting = true
-		$CollisionShape2D.call_deferred("set_disabled", true)
+		$Body/Hand/FlameThrower.set_burn(false)
+		dying = true
+#		$CollisionShape2D.call_deferred("set_disabled", true)
 		$DyingTimer.start()
 		Input.action_release("fire")
 
@@ -206,7 +233,47 @@ func _on_FlamePistolCooldown_timeout():
 
 
 func _on_DyingTimer_timeout():
+	lives -= 1
+	emit_signal("update_lives_ui", lives)
 	$FlamingDeath.revive()
 	yield(get_tree().create_timer(1.0), "timeout")
-	$CollisionShape2D.call_deferred("set_disabled", false)
-	player_state = MOVE
+#	$CollisionShape2D.call_deferred("set_disabled", false)
+	if lives > 0:
+		dying = false
+		player_state = MOVE
+	else:
+		$DefeatDelay.start()
+		$Body.play("death")
+		$Body/Hand.hide()
+		$Body/Head.hide()
+
+func check_flame_power():
+	if flame_power > 30:
+		flame_thrower_enabled = true
+		emit_signal("update_flamethrower_ui", flame_thrower_enabled)
+	elif flame_power <= 0:
+		Input.action_press("flame_pistol")
+		Input.action_release("flame_pistol")
+		Input.action_release("flamethrower")
+		Input.action_release("fire")
+		$Body/Hand/FlameThrower.set_burn(false)
+		flame_thrower_enabled = false
+		emit_signal("update_flamethrower_ui", flame_thrower_enabled)
+
+
+func _on_DefeatDelay_timeout():
+	print("you lose")
+	get_tree().paused = true
+
+
+func _on_FlameThrowerCycle_timeout():
+	if Input.is_action_pressed("fire") and flame_thrower_enabled:
+		flame_power -= 5
+	else:
+		if flame_power < 0:
+			flame_power = 0
+		$FlameThrowerCycle.stop()
+
+
+func _on_GummyBear_winning_signal():
+	dying = true

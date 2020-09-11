@@ -5,7 +5,7 @@ var GRAVITY : float = 1000
 var ply : KinematicBody2D
 var attack_cooldown : bool = false
 var state = IDLE
-
+var dead : bool = false
 var current_health : int setget set_current_health, get_current_health
 
 onready var crossbow_bolt : PackedScene = load("res://TestEnv/CrossbowBolt.tscn")
@@ -22,14 +22,20 @@ enum {
 func _init().(2, 0):
 	current_health = health
 
+func _ready():
+	$Body.play("idle")
+
+
 func set_current_health(value :int) -> void:
 	current_health = value
 	if current_health <= 0:
 		get_parent().report_dead()
+		$Body/Hand.visible = false
+		$Collider.scale.y = 0.3
 		$Body.play("death")
 		state = DEATH
-		set_process(false)
-		$Collider.call_deferred("set_disabled", true)
+		dead = true
+#		$Collider.call_deferred("set_disabled", true)
 
 func get_current_health() -> int:
 	return current_health
@@ -47,11 +53,12 @@ func _process(delta):
 		ATTACKING:
 			_aim_at_player()
 			_face_to_player()
-			if not attack_cooldown:
+			if not attack_cooldown and not dead:
 				_attack_player()
 
 func _aim_at_player():
 	$Body/Hand.rotation = (global_position - ply.global_position).angle()
+#	$Body/Hand/ShoulderAim.look_at(ply.position)
 #	$Body/Hand.look_at(ply.position)
 
 
@@ -60,7 +67,8 @@ func _attack_player():
 	$AttackCooldown.start()
 	var new_bolt = crossbow_bolt.instance()
 	new_bolt.position = $Body/Hand/BulletSpawnPos.global_position
-	new_bolt.set_bullet_rotation($Body/Hand.rotation)
+	new_bolt.set_bullet_rotation($Body/Hand.global_rotation)
+
 	get_tree().get_root().get_node("Stage1/BulletPool").add_child(new_bolt)
 #	emit_signal("send_bullet", new_bolt, $Body/Hand/BulletSpawnPos.global_position, $Body/Hand.global_rotation)
 	
@@ -70,6 +78,7 @@ func _on_PlayerDetector_body_entered(body):
 		ply = body
 		state = ATTACKING
 		_face_to_player()
+		$PlayerDetector/CollisionShape2D.call_deferred("set_disabled", true)
 
 func _face_to_player():
 	if ply.global_position.x < global_position.x:

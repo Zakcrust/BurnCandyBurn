@@ -22,24 +22,37 @@ var spear_scene : PackedScene = load("res://Scene/Enemy/Spear.tscn")
 signal add_shockwave(obj, obj_position)
 signal add_spear(obj, obj_position)
 
+signal update_health_ui(percent)
+
+signal winning_signal()
+
+
 enum {
 	IDLE
 	MOVE,
 	DASH,
 	SLAM,
 	ATTACK,
-	THROWSPEAR
+	THROWSPEAR,
+	DEATH
 }
 
 var state = IDLE
 
 func _init().(60, 0):
-	pass
+	current_health = health
 	
 func set_current_health(value : int) -> void:
 	current_health = value
+	var percent_of_health : float = current_health / (health * 1.0)
+	emit_signal("update_health_ui", (percent_of_health * 100))
 	if current_health <= 0:
-		queue_free()
+		$Body.play("death")
+		state = DEATH
+		$CollisionShape2D.scale.x = 0.3
+		$Body/MeleeRange.call_deferred("set_monitoring", false)
+		$Body/MeleeRange/HitBox.call_deferred("set_monitoring", false)
+		$WinningDelay.start()
 
 
 func get_current_health() -> int:
@@ -110,6 +123,7 @@ func _on_MeleeRange_body_entered(body):
 
 func _on_AttackPropagate_timeout():
 	attack_counter += 1
+	$Body/MeleeRange/HitBox.call_deferred("set_monitoring", true)
 	$Body.play("attack")
 	$AttackDelay.start()
 	_check_attack_count()
@@ -119,12 +133,14 @@ func _check_attack_count() -> void:
 	if attack_counter >= 3:
 		attack_counter = 0
 		attacking = true
+		$AttackDelay.stop()
 		$ToSlam.start()
 
 
 func _on_AttackDelay_timeout():
 	attacking = false
 	state = MOVE
+	$Body/MeleeRange/HitBox.call_deferred("set_monitoring", false)
 
 
 func _on_ToSlam_timeout():
@@ -165,3 +181,13 @@ func _on_ThrowingTimer_timeout():
 
 func _on_ThrowingDelay_timeout():
 	state = MOVE
+
+
+func _on_HitBox_body_entered(body):
+	if body is Player:
+		body.hit()
+
+
+func _on_WinningDelay_timeout():
+	print("you win")
+	get_tree().paused = true

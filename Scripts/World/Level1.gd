@@ -34,6 +34,7 @@ func _on_ToRoom2_body_entered(body):
 func _on_ToRoom3_body_entered(body):
 	if body is Player:
 		print("colliding")
+		$UI/ui/bossAppear.show()
 		$Camera2D.limit_right = 1024*3
 		$Camera2D.offset_h = 50
 		body.set_min_x_pos(1024*2)

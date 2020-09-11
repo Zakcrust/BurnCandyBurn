@@ -13,22 +13,22 @@ region = Rect2( 584, 0, 146, 110 )
 [sub_resource type="AtlasTexture" id=3]
 flags = 9
 atlas = ExtResource( 2 )
-region = Rect2( 714, 0, 102, 110 )
+region = Rect2( 714, 110, 102, 110 )
 
 [sub_resource type="AtlasTexture" id=4]
 flags = 9
 atlas = ExtResource( 2 )
-region = Rect2( 272, 0, 68, 110 )
+region = Rect2( 714, 0, 102, 110 )
 
 [sub_resource type="AtlasTexture" id=5]
 flags = 9
 atlas = ExtResource( 2 )
-region = Rect2( 408, 0, 68, 110 )
+region = Rect2( 272, 0, 68, 110 )
 
 [sub_resource type="AtlasTexture" id=6]
 flags = 9
 atlas = ExtResource( 2 )
-region = Rect2( 714, 110, 102, 110 )
+region = Rect2( 408, 0, 68, 110 )
 
 [sub_resource type="SpriteFrames" id=7]
 animations = [ {
@@ -37,20 +37,20 @@ animations = [ {
 "name": "idle",
 "speed": 5.0
 }, {
-"frames": [ SubResource( 3 ), SubResource( 2 ), ExtResource( 1 ), SubResource( 2 ) ],
+"frames": [ SubResource( 3 ) ],
+"loop": true,
+"name": "attack",
+"speed": 5.0
+}, {
+"frames": [ SubResource( 4 ), SubResource( 2 ), ExtResource( 1 ), SubResource( 2 ) ],
 "loop": true,
 "name": "walk",
 "speed": 5.0
 }, {
-"frames": [ SubResource( 4 ), SubResource( 5 ) ],
+"frames": [ SubResource( 5 ), SubResource( 6 ) ],
 "loop": true,
 "name": "death",
 "speed": 4.0
-}, {
-"frames": [ SubResource( 6 ) ],
-"loop": true,
-"name": "attack",
-"speed": 5.0
 } ]
 
 [node name="GummyCrossbowman" type="Area2D"]

@@ -34,6 +34,7 @@ func check_active_spawner() -> void:
 		if wave_count >= maximum_wave:
 			set_process(false)
 			emit_signal("enemies_cleared")
+			yield(get_tree().create_timer(3.0),"timeout")
 			queue_free()
 		else:
 			spawners_count = 0

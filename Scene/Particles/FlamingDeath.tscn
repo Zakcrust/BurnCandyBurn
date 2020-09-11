@@ -1,6 +1,6 @@
 [gd_scene load_steps=6 format=2]
 
-[sub_resource type="GDScript" id=4]
+[sub_resource type="GDScript" id=1]
 script/source = "extends Node2D
 
 func _ready():
@@ -14,7 +14,10 @@ func revive() -> void:
 
 func _on_BurnArea_body_entered(body):
 	if body is Enemy:
-		body.current_health = 0
+		if body.current_health < 10:
+			body.current_health = 0
+		else:
+			body.current_health = body.current_health - 10
 
 
 func _on_Timer_timeout():
@@ -27,7 +30,7 @@ colors = PoolColorArray( 1, 0.0390625, 0.0390625, 1, 1, 0.609375, 0, 1 )
 [sub_resource type="GradientTexture" id=3]
 gradient = SubResource( 2 )
 
-[sub_resource type="ParticlesMaterial" id=1]
+[sub_resource type="ParticlesMaterial" id=4]
 emission_shape = 1
 emission_sphere_radius = 16.0
 flag_disable_z = true
@@ -45,14 +48,14 @@ extents = Vector2( 222.236, 127.463 )
 
 [node name="FlamingDeath" type="Node2D"]
 scale = Vector2( 2, 2 )
-script = SubResource( 4 )
+script = SubResource( 1 )
 
 [node name="Particles2D" type="Particles2D" parent="."]
 emitting = false
 amount = 100000
 one_shot = true
 randomness = 1.0
-process_material = SubResource( 1 )
+process_material = SubResource( 4 )
 
 [node name="BurnArea" type="Area2D" parent="."]
 collision_layer = 15

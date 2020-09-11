@@ -30,15 +30,18 @@ func is_dead() -> bool:
 
 
 func set_current_health(value : int) -> void:
+	if dead:
+		return
 	current_health = value
 	if current_health <= 0:
 		dead = true
 		get_parent().report_dead()
 		$Body.play("death")
 		state = DEATH
-		set_process(false)
+#		set_process(false)
+		$Collider.scale.y = 0.3
 		$Body/DashPoint/DashCollider.call_deferred("set_disabled", true)
-		$Collider.call_deferred("set_disabled", true)
+#		$Collider.call_deferred("set_disabled", true)
 		$DashTimer.stop()
 		$DashCoolDown.stop()
 		$DashInit.stop()
@@ -130,7 +133,7 @@ func _on_DashInit_timeout():
 
 
 func _on_SpearPoint_body_entered(body):
-	if body is Player:
+	if body is Player and not body.is_dying():
 		print("hit player")
 		body.hit()
 	

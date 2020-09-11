@@ -1,5 +1,9 @@
 extends Node2D
 
+
+var hit_particle : PackedScene = load("res://Scene/Particles/BurningEnemyFLame.tscn")
+
+
 func _ready():
 	set_burn(false)
 
@@ -18,7 +22,6 @@ func burn_routine() -> void:
 		$BurnTimer.start()
 
 
-
 func _on_BurnTimer_timeout():
 	burn_routine()
 
@@ -26,3 +29,8 @@ func _on_BurnTimer_timeout():
 func _on_BurnArea_body_entered(body):
 	if body is Enemy:
 		body.current_health = body.current_health - 2
+		var new_particle = hit_particle.instance()
+#		new_particle.position = body.global_position
+		if not body.has_node("res://Scene/Particles/BurningEnemyFLame.tscn"):
+			print("add burning flame")
+			body.add_child(new_particle)

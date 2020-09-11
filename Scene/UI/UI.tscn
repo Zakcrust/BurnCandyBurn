@@ -20,6 +20,8 @@ font_data = ExtResource( 4 )
 
 [sub_resource type="DynamicFont" id=2]
 size = 14
+use_mipmaps = true
+use_filter = true
 font_data = ExtResource( 6 )
 
 [sub_resource type="AtlasTexture" id=3]
@@ -137,8 +139,9 @@ __meta__ = {
 }
 
 [node name="bossAppear" type="Control" parent="ui"]
+margin_top = 26.0
 margin_right = 40.0
-margin_bottom = 40.0
+margin_bottom = 66.0
 __meta__ = {
 "_edit_use_anchors_": false
 }
@@ -179,7 +182,7 @@ __meta__ = {
 margin_right = 200.0
 margin_bottom = 31.0
 custom_fonts/font = SubResource( 2 )
-text = "Boss Name"
+text = "GATE DEFENDER GUM"
 align = 1
 valign = 1
 __meta__ = {
@@ -212,7 +215,7 @@ __meta__ = {
 "_edit_use_anchors_": false
 }
 
-[node name="flamegun" type="ColorRect" parent="ui"]
+[node name="flamepistol" type="ColorRect" parent="ui"]
 margin_left = 440.0
 margin_top = 48.0
 margin_right = 520.0
@@ -223,23 +226,22 @@ __meta__ = {
 "_edit_use_anchors_": false
 }
 
-[node name="Sprite2" type="Sprite" parent="ui/flamegun"]
-position = Vector2( 11.7755, 27.2806 )
+[node name="Sprite2" type="Sprite" parent="ui/flamepistol"]
+position = Vector2( 22.7755, 27.2806 )
 scale = Vector2( 0.680006, 0.680006 )
-texture = ExtResource( 8 )
+texture = ExtResource( 10 )
 centered = false
 region_enabled = true
 region_rect = Rect2( 24, 40, 88, 48 )
 
-[node name="border" type="Sprite" parent="ui/flamegun"]
-visible = false
+[node name="border" type="Sprite" parent="ui/flamepistol"]
 scale = Vector2( 0.7, 0.7 )
 texture = ExtResource( 7 )
 centered = false
 region_enabled = true
 region_rect = Rect2( 24, 40, 120, 116 )
 
-[node name="flamegun2" type="ColorRect" parent="ui"]
+[node name="flamethrower" type="ColorRect" parent="ui"]
 margin_left = 615.0
 margin_top = 48.0
 margin_right = 695.0
@@ -250,15 +252,16 @@ __meta__ = {
 "_edit_use_anchors_": false
 }
 
-[node name="Sprite2" type="Sprite" parent="ui/flamegun2"]
+[node name="Sprite2" type="Sprite" parent="ui/flamethrower"]
 position = Vector2( 9.90259, 22.7857 )
 scale = Vector2( 0.680006, 0.680006 )
-texture = ExtResource( 10 )
+texture = ExtResource( 8 )
 centered = false
 region_enabled = true
 region_rect = Rect2( 24, 32, 96, 64 )
 
-[node name="border" type="Sprite" parent="ui/flamegun2"]
+[node name="border" type="Sprite" parent="ui/flamethrower"]
+visible = false
 scale = Vector2( 0.7, 0.7 )
 texture = SubResource( 3 )
 centered = false

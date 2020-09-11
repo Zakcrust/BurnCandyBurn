@@ -1,4 +1,4 @@
-[gd_scene load_steps=16 format=2]
+[gd_scene load_steps=21 format=2]
 
 [ext_resource path="res://Assets/atlas/BossGUM/Move/move_1.tres" type="Texture" id=1]
 [ext_resource path="res://TestEnv/TestBossGummyBear.gd" type="Script" id=2]
@@ -12,6 +12,10 @@
 [ext_resource path="res://Assets/atlas/BossGUM/Throwing/throwing_0.tres" type="Texture" id=10]
 [ext_resource path="res://Assets/atlas/BossGUM/Throwing/throwing_1.tres" type="Texture" id=11]
 [ext_resource path="res://Assets/atlas/BossGUM/Attacking/attacking_2.tres" type="Texture" id=12]
+[ext_resource path="res://icon.png" type="Texture" id=13]
+[ext_resource path="res://Assets/atlas/BossGUM/Death/death_1.tres" type="Texture" id=14]
+[ext_resource path="res://Assets/atlas/BossGUM/Death/death_0.tres" type="Texture" id=15]
+[ext_resource path="res://Assets/atlas/BossGUM/Death/death_3.tres" type="Texture" id=16]
 
 [sub_resource type="SpriteFrames" id=1]
 animations = [ {
@@ -20,36 +24,44 @@ animations = [ {
 "name": "idle",
 "speed": 5.0
 }, {
+"frames": [ ExtResource( 15 ), ExtResource( 14 ), ExtResource( 16 ) ],
+"loop": false,
+"name": "death",
+"speed": 5.0
+}, {
 "frames": [ ExtResource( 12 ), ExtResource( 7 ) ],
 "loop": false,
 "name": "attack",
 "speed": 5.0
 }, {
-"frames": [ ExtResource( 6 ) ],
+"frames": [ ExtResource( 8 ), ExtResource( 9 ), ExtResource( 8 ) ],
 "loop": false,
-"name": "attack_init",
-"speed": 5.0
-}, {
-"frames": [ ExtResource( 4 ), ExtResource( 1 ), ExtResource( 5 ), ExtResource( 1 ) ],
-"loop": true,
-"name": "move_spear",
-"speed": 5.0
+"name": "shield_slam",
+"speed": 3.0
 }, {
 "frames": [ ExtResource( 10 ), ExtResource( 11 ) ],
 "loop": false,
 "name": "spear_throw",
 "speed": 2.0
 }, {
-"frames": [ ExtResource( 8 ), ExtResource( 9 ), ExtResource( 8 ) ],
+"frames": [ ExtResource( 4 ), ExtResource( 1 ), ExtResource( 5 ), ExtResource( 1 ) ],
+"loop": true,
+"name": "move_spear",
+"speed": 5.0
+}, {
+"frames": [ ExtResource( 6 ) ],
 "loop": false,
-"name": "shield_slam",
-"speed": 3.0
+"name": "attack_init",
+"speed": 5.0
 } ]
 
 [sub_resource type="RectangleShape2D" id=2]
 extents = Vector2( 72, 128 )
 
 [sub_resource type="RectangleShape2D" id=3]
+extents = Vector2( 52.0335, 88.822 )
+
+[sub_resource type="RectangleShape2D" id=4]
 extents = Vector2( 27.1359, 47.2258 )
 
 [node name="GummyBear" type="KinematicBody2D"]
@@ -59,8 +71,8 @@ script = ExtResource( 2 )
 
 [node name="Body" type="AnimatedSprite" parent="."]
 frames = SubResource( 1 )
-animation = "attack"
-frame = 1
+animation = "death"
+frame = 2
 playing = true
 
 [node name="MeleeRange" type="Area2D" parent="Body"]
@@ -70,13 +82,26 @@ scale = Vector2( 0.5, 0.5 )
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Body/MeleeRange"]
 shape = SubResource( 2 )
 
+[node name="HitBox" type="Area2D" parent="Body/MeleeRange"]
+monitoring = false
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Body/MeleeRange/HitBox"]
+position = Vector2( 4, 2 )
+shape = SubResource( 3 )
+
 [node name="SpearPosition" type="Node2D" parent="Body"]
 position = Vector2( -29, -13 )
 scale = Vector2( 0.5, 0.5 )
 
+[node name="icon" type="Sprite" parent="Body"]
+visible = false
+position = Vector2( -31.9603, -1.31236 )
+scale = Vector2( 0.522923, 1 )
+texture = ExtResource( 13 )
+
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 position = Vector2( 8, 0 )
-shape = SubResource( 3 )
+shape = SubResource( 4 )
 
 [node name="PlayerDetector" parent="." groups=[
 "boss",
@@ -117,8 +142,11 @@ one_shot = true
 
 [node name="ThrowingDelay" type="Timer" parent="."]
 one_shot = true
+
+[node name="WinningDelay" type="Timer" parent="."]
 [connection signal="animation_finished" from="Body" to="." method="_on_Body_animation_finished"]
 [connection signal="body_entered" from="Body/MeleeRange" to="." method="_on_MeleeRange_body_entered"]
+[connection signal="body_entered" from="Body/MeleeRange/HitBox" to="." method="_on_HitBox_body_entered"]
 [connection signal="body_entered" from="PlayerDetector" to="." method="_on_PlayerDetector_body_entered"]
 [connection signal="timeout" from="DashTimer" to="." method="_on_DashTimer_timeout"]
 [connection signal="timeout" from="AttackDelay" to="." method="_on_AttackDelay_timeout"]
@@ -128,3 +156,4 @@ one_shot = true
 [connection signal="timeout" from="ShockWaveTimer" to="." method="_on_ShockWaveTimer_timeout"]
 [connection signal="timeout" from="ThrowingTimer" to="." method="_on_ThrowingTimer_timeout"]
 [connection signal="timeout" from="ThrowingDelay" to="." method="_on_ThrowingDelay_timeout"]
+[connection signal="timeout" from="WinningDelay" to="." method="_on_WinningDelay_timeout"]
