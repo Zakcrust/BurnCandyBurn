@@ -36,6 +36,10 @@ config/name="BurnCandyBurnGodot"
 run/main_scene="res://Scene/World/Level1.tscn"
 config/icon="res://icon.png"
 
+[autoload]
+
+MusicManager="*res://DataManager/MusicManager.tscn"
+
 [input]
 
 move_left={
