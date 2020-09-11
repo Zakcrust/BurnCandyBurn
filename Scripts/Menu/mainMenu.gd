@@ -6,7 +6,7 @@ func _ready():
 
 
 func _on_start_pressed():
-	pass # Replace with function body.
+	get_tree().change_scene("res://Scene/World/Level1.tscn")
 
 
 func _on_ext_pressed():

@@ -12,6 +12,7 @@ var lives : int = 4
 signal update_ui_weapon(weapon)
 signal update_lives_ui(lives)
 signal update_flamethrower_ui(full)
+signal lose()
 
 var flame_thrower_enabled : bool = false
 
@@ -263,7 +264,7 @@ func check_flame_power():
 
 func _on_DefeatDelay_timeout():
 	print("you lose")
-	get_tree().paused = true
+	emit_signal("lose")
 
 
 func _on_FlameThrowerCycle_timeout():

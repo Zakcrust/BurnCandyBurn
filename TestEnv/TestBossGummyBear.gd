@@ -21,7 +21,7 @@ var spear_scene : PackedScene = load("res://Scene/Enemy/Spear.tscn")
 
 signal add_shockwave(obj, obj_position)
 signal add_spear(obj, obj_position)
-
+signal win()
 signal update_health_ui(percent)
 
 signal winning_signal()
@@ -190,4 +190,4 @@ func _on_HitBox_body_entered(body):
 
 func _on_WinningDelay_timeout():
 	print("you win")
-	get_tree().paused = true
+	emit_signal("win")

@@ -465,7 +465,7 @@ z_index = 1
 [node name="Room1Spawner" parent="." instance=ExtResource( 5 )]
 position = Vector2( 0, 0 )
 maximum_spawn_pool = 4
-maximum_wave = 1
+maximum_wave = 3
 
 [node name="SpawnPoint" parent="Room1Spawner" instance=ExtResource( 8 )]
 position = Vector2( -231.532, 454.952 )
@@ -481,7 +481,7 @@ enemy_scene = ExtResource( 7 )
 
 [node name="Room2Spawner" parent="." instance=ExtResource( 5 )]
 maximum_spawn_pool = 4
-maximum_wave = 1
+maximum_wave = 3
 
 [node name="SpawnPoint" parent="Room2Spawner" instance=ExtResource( 8 )]
 position = Vector2( -148, 3 )
@@ -556,6 +556,7 @@ position = Vector2( 2934.76, 429.134 )
 
 [node name="UI" parent="." instance=ExtResource( 10 )]
 pause_mode = 2
+[connection signal="lose" from="Player" to="UI" method="_on_Player_lose"]
 [connection signal="send_bullet" from="Player" to="BulletPool" method="_on_Player_send_bullet"]
 [connection signal="update_flamethrower_ui" from="Player" to="UI" method="_on_Player_update_flamethrower_ui"]
 [connection signal="update_lives_ui" from="Player" to="UI" method="_on_Player_update_lives_ui"]
@@ -572,4 +573,5 @@ pause_mode = 2
 [connection signal="enemy_cleared" from="Room2Spawner/SpawnPoint5" to="Room2Spawner" method="_on_SpawnPoint5_enemy_cleared"]
 [connection signal="body_entered" from="ToRoom3" to="." method="_on_ToRoom3_body_entered"]
 [connection signal="update_health_ui" from="GummyBear" to="UI" method="_on_GummyBear_update_health_ui"]
+[connection signal="win" from="GummyBear" to="UI" method="_on_GummyBear_win"]
 [connection signal="winning_signal" from="GummyBear" to="Player" method="_on_GummyBear_winning_signal"]

@@ -5,6 +5,9 @@ var second : int = 0
 
 onready var lives_ui : Array = $ui/hp.get_children()
 
+signal finish_game(status, game_time)
+
+
 func _ready():
 	$ui/time/time.text = "00:00"
 	
@@ -64,3 +67,11 @@ func _on_Player_update_flamethrower_ui(full):
 		$ui/flamethrower/Sprite2.modulate = Color8(255,255,255, 255)
 	else:
 		$ui/flamethrower/Sprite2.modulate = Color8(255,255,255, 100)
+
+
+func _on_Player_lose():
+	emit_signal("finish_game", "lose", $ui/time/time.text)
+
+
+func _on_GummyBear_win():
+	emit_signal("finish_game", "win", $ui/time/time.text)

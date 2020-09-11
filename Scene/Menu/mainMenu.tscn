@@ -64,7 +64,6 @@ __meta__ = {
 }
 
 [node name="sett" type="Sprite" parent="."]
-visible = false
 position = Vector2( 264, 512 )
 texture = ExtResource( 3 )
 __meta__ = {

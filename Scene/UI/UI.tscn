@@ -1,4 +1,4 @@
-[gd_scene load_steps=24 format=2]
+[gd_scene load_steps=25 format=2]
 
 [ext_resource path="res://Assets/Player/Head/Head_0.tres" type="Texture" id=1]
 [ext_resource path="res://Assets/Player/Head/Head_1.tres" type="Texture" id=2]
@@ -11,6 +11,7 @@
 [ext_resource path="res://Assets/UI/or_atlas.png" type="Texture" id=9]
 [ext_resource path="res://Assets/UI/flame.tres" type="Texture" id=10]
 [ext_resource path="res://Scripts/UI/UI.gd" type="Script" id=11]
+[ext_resource path="res://Scene/UI/winlose.tscn" type="PackedScene" id=12]
 
 [sub_resource type="DynamicFont" id=1]
 size = 40
@@ -361,6 +362,9 @@ __meta__ = {
 
 [node name="Timer" type="Timer" parent="."]
 autostart = true
+
+[node name="winlose" parent="." instance=ExtResource( 12 )]
+[connection signal="finish_game" from="." to="winlose" method="_on_UI_finish_game"]
 [connection signal="pressed" from="ui/pause" to="." method="_on_pause_pressed"]
 [connection signal="pressed" from="pause/CenterContainer/bg/resume" to="." method="_on_resume_pressed"]
 [connection signal="pressed" from="pause/CenterContainer/bg/exit" to="." method="_on_exit_pressed"]

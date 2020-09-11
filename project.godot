@@ -32,8 +32,8 @@ _global_script_class_icons={
 
 [application]
 
-config/name="BurnCandyBurnGodot"
-run/main_scene="res://Scene/World/Level1.tscn"
+config/name="Candy Burn Burn"
+run/main_scene="res://Scene/Menu/mainMenu.tscn"
 config/icon="res://icon.png"
 
 [autoload]
