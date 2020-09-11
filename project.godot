@@ -34,7 +34,7 @@ _global_script_class_icons={
 
 config/name="Candy Burn Burn"
 run/main_scene="res://Scene/Menu/mainMenu.tscn"
-config/icon="res://icon.png"
+config/icon="res://Assets/Player/Head/Head_0.tres"
 
 [autoload]
 

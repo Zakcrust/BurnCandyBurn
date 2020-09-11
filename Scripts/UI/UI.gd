@@ -70,8 +70,10 @@ func _on_Player_update_flamethrower_ui(full):
 
 
 func _on_Player_lose():
+	$ui.hide()
 	emit_signal("finish_game", "lose", $ui/time/time.text)
 
 
 func _on_GummyBear_win():
+	$ui.hide()
 	emit_signal("finish_game", "win", $ui/time/time.text)

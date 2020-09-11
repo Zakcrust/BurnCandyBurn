@@ -556,6 +556,7 @@ position = Vector2( 2934.76, 429.134 )
 
 [node name="UI" parent="." instance=ExtResource( 10 )]
 pause_mode = 2
+layer = 2
 [connection signal="lose" from="Player" to="UI" method="_on_Player_lose"]
 [connection signal="send_bullet" from="Player" to="BulletPool" method="_on_Player_send_bullet"]
 [connection signal="update_flamethrower_ui" from="Player" to="UI" method="_on_Player_update_flamethrower_ui"]

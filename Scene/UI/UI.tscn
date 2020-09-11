@@ -67,6 +67,8 @@ bg_color = Color( 0.937255, 0.670588, 0.901961, 1 )
 [node name="UI" type="CanvasLayer"]
 script = ExtResource( 11 )
 
+[node name="winlose" parent="." instance=ExtResource( 12 )]
+
 [node name="ui" type="Control" parent="."]
 __meta__ = {
 "_edit_use_anchors_": false
@@ -362,8 +364,6 @@ __meta__ = {
 
 [node name="Timer" type="Timer" parent="."]
 autostart = true
-
-[node name="winlose" parent="." instance=ExtResource( 12 )]
 [connection signal="finish_game" from="." to="winlose" method="_on_UI_finish_game"]
 [connection signal="pressed" from="ui/pause" to="." method="_on_pause_pressed"]
 [connection signal="pressed" from="pause/CenterContainer/bg/resume" to="." method="_on_resume_pressed"]
