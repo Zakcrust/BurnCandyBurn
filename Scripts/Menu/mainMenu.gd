@@ -14,4 +14,4 @@ func _on_ext_pressed():
 
 
 func _on_setting_pressed():
-	pass # Replace with function body.
+	get_tree().change_scene("res://Scene/Menu/credits.tscn")

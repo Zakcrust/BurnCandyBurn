@@ -1,0 +1,116 @@
+[gd_scene load_steps=7 format=2]
+
+[ext_resource path="res://Assets/Fonts/ENDOR___.ttf" type="DynamicFontData" id=1]
+[ext_resource path="res://Scripts/Menu/credits.gd" type="Script" id=2]
+
+[sub_resource type="DynamicFont" id=1]
+size = 32
+extra_spacing_char = 10
+font_data = ExtResource( 1 )
+
+[sub_resource type="DynamicFont" id=2]
+size = 18
+outline_size = 1
+outline_color = Color( 0.431373, 0.00784314, 0.423529, 1 )
+extra_spacing_char = 10
+font_data = ExtResource( 1 )
+
+[sub_resource type="StyleBoxFlat" id=3]
+bg_color = Color( 0.34902, 0.133333, 0.254902, 1 )
+
+[sub_resource type="DynamicFont" id=4]
+font_data = ExtResource( 1 )
+
+[node name="cedits" type="Control"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+script = ExtResource( 2 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="ColorRect" type="ColorRect" parent="."]
+margin_left = -8.0
+margin_right = 1048.0
+margin_bottom = 624.0
+color = Color( 0.113725, 0.0784314, 0.109804, 1 )
+__meta__ = {
+"_edit_use_anchors_": false,
+"_editor_description_": ""
+}
+
+[node name="Label" type="Label" parent="ColorRect"]
+margin_left = 24.0
+margin_top = 64.0
+margin_right = 262.0
+margin_bottom = 128.0
+custom_fonts/font = SubResource( 1 )
+text = "CREDITS"
+valign = 1
+
+[node name="Label4" type="Label" parent="ColorRect"]
+margin_left = 368.0
+margin_top = 168.0
+margin_right = 1391.0
+margin_bottom = 241.0
+custom_fonts/font = SubResource( 2 )
+text = "BGM : 
+https://dova-s.jp/bgm/play13311.html"
+align = 3
+valign = 1
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Label5" type="Label" parent="ColorRect"]
+margin_left = 368.0
+margin_top = 272.0
+margin_right = 1391.0
+margin_bottom = 345.0
+custom_fonts/font = SubResource( 2 )
+text = "GAME PROGRAMMER : 
+Zakcrusted - Klugsiev"
+align = 3
+valign = 1
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Label6" type="Label" parent="ColorRect"]
+margin_left = 368.0
+margin_top = 368.0
+margin_right = 1391.0
+margin_bottom = 441.0
+custom_fonts/font = SubResource( 2 )
+text = "GAME DESIGNER : 
+Qhiba"
+align = 3
+valign = 1
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Label7" type="Label" parent="ColorRect"]
+margin_left = 368.0
+margin_top = 464.0
+margin_right = 1391.0
+margin_bottom = 537.0
+custom_fonts/font = SubResource( 2 )
+text = "GAME ARTIST : 
+8E3R
+DER_Lolijager"
+align = 3
+valign = 1
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="back" type="Button" parent="ColorRect"]
+margin_left = 56.0
+margin_top = 528.0
+margin_right = 176.0
+margin_bottom = 572.0
+custom_styles/normal = SubResource( 3 )
+custom_fonts/font = SubResource( 4 )
+text = "BACK"
+[connection signal="pressed" from="ColorRect/back" to="." method="_on_back_pressed"]
