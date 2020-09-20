@@ -34,24 +34,24 @@ animations = [ {
 "name": "attack",
 "speed": 5.0
 }, {
-"frames": [ ExtResource( 8 ), ExtResource( 9 ), ExtResource( 8 ) ],
+"frames": [ ExtResource( 6 ) ],
 "loop": false,
-"name": "shield_slam",
-"speed": 3.0
+"name": "attack_init",
+"speed": 5.0
 }, {
 "frames": [ ExtResource( 10 ), ExtResource( 11 ) ],
 "loop": false,
 "name": "spear_throw",
 "speed": 2.0
 }, {
+"frames": [ ExtResource( 8 ), ExtResource( 9 ), ExtResource( 8 ) ],
+"loop": false,
+"name": "shield_slam",
+"speed": 3.0
+}, {
 "frames": [ ExtResource( 4 ), ExtResource( 1 ), ExtResource( 5 ), ExtResource( 1 ) ],
 "loop": true,
 "name": "move_spear",
-"speed": 5.0
-}, {
-"frames": [ ExtResource( 6 ) ],
-"loop": false,
-"name": "attack_init",
 "speed": 5.0
 } ]
 
@@ -71,8 +71,7 @@ script = ExtResource( 2 )
 
 [node name="Body" type="AnimatedSprite" parent="."]
 frames = SubResource( 1 )
-animation = "death"
-frame = 2
+animation = "idle"
 playing = true
 
 [node name="MeleeRange" type="Area2D" parent="Body"]

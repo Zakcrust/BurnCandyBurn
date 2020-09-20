@@ -70,6 +70,7 @@ func _on_Player_update_flamethrower_ui(full):
 
 
 func _on_Player_lose():
+	
 	$ui.hide()
 	emit_signal("finish_game", "lose", $ui/time/time.text)
 

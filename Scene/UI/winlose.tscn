@@ -15,9 +15,11 @@ func end_game(game_status : String, game_time : String) -> void:
 	
 	match(game_status):
 		\"win\":
+			get_tree().paused = true
 			$win.show()
 			$win/time/Time.text = game_time
 		\"lose\":
+			get_tree().paused = true
 			$lose.show()
 			$lose/time/Time.text = game_time
 

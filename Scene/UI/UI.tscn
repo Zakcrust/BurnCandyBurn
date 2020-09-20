@@ -142,6 +142,7 @@ __meta__ = {
 }
 
 [node name="bossAppear" type="Control" parent="ui"]
+visible = false
 margin_top = 26.0
 margin_right = 40.0
 margin_bottom = 66.0

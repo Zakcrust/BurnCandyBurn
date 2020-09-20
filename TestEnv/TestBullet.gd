@@ -1,7 +1,7 @@
 extends Node2D
 
 
-var bullet_speed : float = 300
+var bullet_speed : float = 900
 var bullet_rotation : float
 
 var hit_particle : PackedScene = load("res://Scene/Weapon/HitParticles.tscn")

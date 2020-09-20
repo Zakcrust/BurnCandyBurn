@@ -57,7 +57,7 @@ func _process(delta):
 				_attack_player()
 
 func _aim_at_player():
-	$Body/Hand.rotation = (global_position - ply.global_position).angle()
+	$Body/Hand.rotation = ($Body/Hand.global_position - ply.global_position).angle()
 #	$Body/Hand/ShoulderAim.look_at(ply.position)
 #	$Body/Hand.look_at(ply.position)
 
@@ -67,7 +67,8 @@ func _attack_player():
 	$AttackCooldown.start()
 	var new_bolt = crossbow_bolt.instance()
 	new_bolt.position = $Body/Hand/BulletSpawnPos.global_position
-	new_bolt.set_bullet_rotation($Body/Hand.global_rotation)
+	new_bolt.transform = $Body/Hand/BulletSpawnPos.global_transform
+#	new_bolt.set_bullet_rotation($Body/Hand.global_rotation)
 
 	get_tree().get_root().get_node("Stage1/BulletPool").add_child(new_bolt)
 #	emit_signal("send_bullet", new_bolt, $Body/Hand/BulletSpawnPos.global_position, $Body/Hand.global_rotation)

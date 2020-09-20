@@ -4,7 +4,7 @@ extends Enemy
 var speed : float = 200
 var velocity : Vector2 = Vector2()
 var GRAVITY : float = 1000
-var dash_speed : float = 400
+var dash_speed : float = 300
 var dash_direction : Vector2
 var state = IDLE
 var ply : KinematicBody2D
@@ -62,6 +62,10 @@ func _process(delta):
 		IDLE:
 			$Body.play("idle")
 		MOVE:
+			if dead:
+				state = DEATH
+				$Body.play("death")
+				return
 			velocity.x += speed
 			$Body.play("move")
 		DASH:
@@ -83,6 +87,8 @@ func _check_player_position() -> void:
 
 
 func _on_VisibilityNotifier2D_screen_exited():
+	if state == DEATH:
+		return
 	state = IDLE
 	$IdleTimer.start()
 

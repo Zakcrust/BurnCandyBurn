@@ -27,7 +27,7 @@ func _on_BurnTimer_timeout():
 
 
 func _on_BurnArea_body_entered(body):
-	if body is Enemy:
+	if body is Enemy and $Particles2D.emitting:
 		body.current_health = body.current_health - 2
 		var new_particle = hit_particle.instance()
 #		new_particle.position = body.global_position

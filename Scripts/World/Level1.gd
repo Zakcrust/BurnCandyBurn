@@ -2,6 +2,7 @@ extends Node2D
 
 var current_room : int = 1
 
+signal show_boss_hp()
 
 func _ready():
 	$ToRoom2/CollisionShape2D.disabled = true
@@ -19,6 +20,7 @@ func _check_room() -> void:
 		3:
 			print("Room 3...")
 			$ToRoom3/Collider.disabled = false
+			$UI/ui/bossAppear.show()
 
 
 func _on_ToRoom2_body_entered(body):

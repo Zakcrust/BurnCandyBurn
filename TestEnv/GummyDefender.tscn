@@ -19,6 +19,11 @@ animations = [ {
 "name": "idle",
 "speed": 5.0
 }, {
+"frames": [ ExtResource( 11 ), ExtResource( 10 ), ExtResource( 1 ) ],
+"loop": false,
+"name": "death",
+"speed": 10.0
+}, {
 "frames": [ ExtResource( 4 ) ],
 "loop": true,
 "name": "init_dash",
@@ -27,11 +32,6 @@ animations = [ {
 "frames": [ ExtResource( 8 ), ExtResource( 4 ) ],
 "loop": false,
 "name": "dash",
-"speed": 10.0
-}, {
-"frames": [ ExtResource( 11 ), ExtResource( 10 ), ExtResource( 1 ) ],
-"loop": false,
-"name": "death",
 "speed": 10.0
 }, {
 "frames": [ ExtResource( 7 ), ExtResource( 9 ), ExtResource( 7 ), ExtResource( 6 ) ],

@@ -465,7 +465,7 @@ z_index = 1
 [node name="Room1Spawner" parent="." instance=ExtResource( 5 )]
 position = Vector2( 0, 0 )
 maximum_spawn_pool = 4
-maximum_wave = 3
+maximum_wave = 6
 
 [node name="SpawnPoint" parent="Room1Spawner" instance=ExtResource( 8 )]
 position = Vector2( -231.532, 454.952 )

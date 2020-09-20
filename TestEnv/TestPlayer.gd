@@ -42,6 +42,8 @@ var weapon_list = {
 #	"shield" : load("").new()
 }
 
+var dash_collision
+
 
 enum {
 	MOVE,
@@ -96,10 +98,6 @@ func _player_input(delta):
 				velocity.x = speed
 			if Input.is_action_pressed("jump") and is_on_floor():
 				velocity.y = -jump_speed
-#			if Input.is_action_just_pressed("shield") and is_on_floor():
-#				$Body/Hand.play("shield_idle")
-#				player_state = SHIELD
-#				return
 			if Input.is_action_just_pressed("dash") and !is_dash_cooldown:
 				$Body.play("dash")
 				$Body/DashParticles/Particles2D.emitting = true
@@ -107,13 +105,10 @@ func _player_input(delta):
 				if velocity.x < 0:
 					dash_direction = Vector2.LEFT
 					$Body.scale.x = -1
-#					$Body/Hand.flip_v = true
-#					$Body.flip_h = true
 				else:
 					dash_direction = Vector2.RIGHT
 					$Body.scale.x = 1
-#					$Body/Hand.flip_v = false
-#					$Body.flip_h = false
+
 				$DashTimer.start()
 				$CollisionShape2D.disabled = true
 				return
@@ -128,7 +123,8 @@ func _player_input(delta):
 			_gun_control(delta)
 			_weapon_slot_control()
 		DASH:
-			position = lerp(position, position + (dash_direction * dash_speed), delta)
+#			position = lerp(position, position + (dash_direction * dash_speed), delta)
+			move_and_slide(dash_direction * dash_speed)
 			return
 		SHIELD:
 			$Body/Hand.play("shield")
@@ -152,24 +148,22 @@ func _hand_control(_delta):
 	
 	if rotation_to_mouse > -0.5 and rotation_to_mouse < 0.5:
 		$Body.scale.x = -1
-#		if not $Body/Hand.flip_v:
-#			$Body/Hand.flip_v = true
-#		if not $Body.flip_h:
-#			$Body.flip_h = true
 	else:
 		$Body.scale.x = 1
-#		$Body/Hand.flip_v = false
-#		$Body.flip_h = false
 	
 func _gun_control(_delta):
 	if Input.is_action_just_pressed("fire") and not weapon_cooldown:
 		match(selected_weapon):
 			"flame_pistol":
 				var new_bullet = bullet.instance()
+				new_bullet.transform = $Body/Hand/BulletSpawner.global_transform
 				if $Body.scale.x == 1:
-					emit_signal("send_bullet", new_bullet, $Body/Hand/BulletSpawner.global_position, $Body/Hand.global_rotation)
+					owner.add_child(new_bullet)
+#					emit_signal("send_bullet", new_bullet, $Body/Hand/BulletSpawner.global_position, $Body/Hand.global_rotation)
 				else:
-					emit_signal("send_bullet", new_bullet, $Body/Hand/BulletSpawner.global_position, -$Body/Hand.global_rotation)
+					new_bullet.rotation *= -1
+					owner.add_child(new_bullet)
+#					emit_signal("send_bullet", new_bullet, $Body/Hand/BulletSpawner.global_position, -$Body/Hand.global_rotation)
 				$FlamePistolCooldown.start()
 				flame_power += 1
 				weapon_cooldown = true
@@ -253,13 +247,12 @@ func check_flame_power():
 		flame_thrower_enabled = true
 		emit_signal("update_flamethrower_ui", flame_thrower_enabled)
 	elif flame_power <= 0:
-		Input.action_press("flame_pistol")
-		Input.action_release("flame_pistol")
-		Input.action_release("flamethrower")
-		Input.action_release("fire")
+		$FlameThrowerCycle.stop()
+		selected_weapon = "flame_pistol"
+		emit_signal("update_ui_weapon", selected_weapon)
+		$Body/Hand.play("flame_pistol")
 		$Body/Hand/FlameThrower.set_burn(false)
 		flame_thrower_enabled = false
-		emit_signal("update_flamethrower_ui", flame_thrower_enabled)
 
 
 func _on_DefeatDelay_timeout():
