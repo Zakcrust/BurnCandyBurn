@@ -25,14 +25,17 @@ func end_game(game_status : String, game_time : String) -> void:
 
 
 func _on_backtomenu_pressed():
+	get_tree().paused = false
 	get_tree().change_scene(\"res://Scene/Menu/mainMenu.tscn\")
 
 
 func _on_playagain_pressed():
+	get_tree().paused = false
 	get_tree().reload_current_scene()
 
 
 func _on_tryagain_pressed():
+	get_tree().paused = false
 	get_tree().reload_current_scene()
 
 

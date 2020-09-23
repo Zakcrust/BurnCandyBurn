@@ -6,6 +6,7 @@ func _ready():
 
 
 func _on_start_pressed():
+	get_tree().paused = false
 	get_tree().change_scene("res://Scene/World/Level1.tscn")
 
 

@@ -43,6 +43,7 @@ func _on_resume_pressed():
 
 
 func _on_exit_pressed():
+	get_tree().paused = false
 	get_tree().change_scene("res://Scene/Menu/mainMenu.tscn")
 
 func set_hp_bar(percent : float) -> void:
