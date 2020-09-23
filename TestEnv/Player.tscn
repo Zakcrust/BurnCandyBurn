@@ -28,11 +28,6 @@ animations = [ {
 "name": "idle",
 "speed": 5.0
 }, {
-"frames": [ ExtResource( 8 ), ExtResource( 9 ), ExtResource( 7 ), ExtResource( 9 ) ],
-"loop": true,
-"name": "walk",
-"speed": 7.0
-}, {
 "frames": [  ],
 "loop": true,
 "name": "revive",
@@ -53,6 +48,11 @@ animations = [ {
 "name": "death",
 "speed": 5.0
 }, {
+"frames": [ ExtResource( 8 ), ExtResource( 9 ), ExtResource( 7 ), ExtResource( 9 ) ],
+"loop": true,
+"name": "walk",
+"speed": 7.0
+}, {
 "frames": [ ExtResource( 11 ) ],
 "loop": true,
 "name": "jump",
@@ -61,9 +61,9 @@ animations = [ {
 
 [sub_resource type="SpriteFrames" id=2]
 animations = [ {
-"frames": [ ExtResource( 17 ) ],
-"loop": false,
-"name": "napalm",
+"frames": [ ExtResource( 18 ) ],
+"loop": true,
+"name": "shield_idle",
 "speed": 5.0
 }, {
 "frames": [ ExtResource( 16 ) ],
@@ -71,20 +71,20 @@ animations = [ {
 "name": "flamethrower",
 "speed": 5.0
 }, {
-"frames": [ ExtResource( 18 ) ],
+"frames": [ ExtResource( 13 ), ExtResource( 12 ) ],
 "loop": true,
-"name": "shield_idle",
+"name": "shield",
+"speed": 10.0
+}, {
+"frames": [ ExtResource( 17 ) ],
+"loop": false,
+"name": "napalm",
 "speed": 5.0
 }, {
 "frames": [ ExtResource( 1 ) ],
 "loop": false,
 "name": "flame_pistol",
 "speed": 5.0
-}, {
-"frames": [ ExtResource( 13 ), ExtResource( 12 ) ],
-"loop": true,
-"name": "shield",
-"speed": 10.0
 } ]
 
 [sub_resource type="RectangleShape2D" id=3]

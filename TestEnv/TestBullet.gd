@@ -24,3 +24,6 @@ func _on_Bullet_body_entered(body):
 		_hit_particle.position = global_position
 		get_parent().add_child(_hit_particle)
 		queue_free()
+	elif body is Bolt:
+		body.queue_free()
+		queue_free()

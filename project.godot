@@ -9,6 +9,11 @@
 config_version=4
 
 _global_script_classes=[ {
+"base": "Area2D",
+"class": "Bolt",
+"language": "GDScript",
+"path": "res://TestEnv/CrossbowBolt.gd"
+}, {
 "base": "KinematicBody2D",
 "class": "Enemy",
 "language": "GDScript",
@@ -25,6 +30,7 @@ _global_script_classes=[ {
 "path": "res://Scripts/Weapon/Weapon.gd"
 } ]
 _global_script_class_icons={
+"Bolt": "",
 "Enemy": "",
 "Player": "",
 "Weapon": ""

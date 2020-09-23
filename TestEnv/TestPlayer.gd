@@ -165,7 +165,8 @@ func _gun_control(_delta):
 					owner.add_child(new_bullet)
 #					emit_signal("send_bullet", new_bullet, $Body/Hand/BulletSpawner.global_position, -$Body/Hand.global_rotation)
 				$FlamePistolCooldown.start()
-				flame_power += 1
+				if flame_power <= 30:
+					flame_power += 1
 				weapon_cooldown = true
 			"flamethrower":
 				$FlameThrowerCycle.start()
@@ -243,7 +244,7 @@ func _on_DyingTimer_timeout():
 		$Body/Head.hide()
 
 func check_flame_power():
-	if flame_power > 30:
+	if flame_power >= 30 and !flame_thrower_enabled:
 		flame_thrower_enabled = true
 		emit_signal("update_flamethrower_ui", flame_thrower_enabled)
 	elif flame_power <= 0:

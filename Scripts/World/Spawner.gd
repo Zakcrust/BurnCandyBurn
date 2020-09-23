@@ -12,11 +12,15 @@ var spawners_count : int
 
 signal enemies_cleared()
 
+signal update_wave_ui(wave)
+
+
 func start_spawners():
 	yield(get_tree().create_timer(2.0), "timeout")
 	spawners_count = get_child_count()
 	for child in get_children():
 		child.start_spawner()
+	emit_signal("update_wave_ui", maximum_wave - wave_count)
 
 
 func _on_SpawnPoint_enemy_cleared():
@@ -40,6 +44,7 @@ func check_active_spawner() -> void:
 			spawners_count = 0
 			wave_count+= 1
 			start_spawners()
+			emit_signal("update_wave_ui", maximum_wave - wave_count)
 
 
 func _on_SpawnPoint3_enemy_cleared():

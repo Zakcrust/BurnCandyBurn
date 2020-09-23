@@ -50,13 +50,14 @@ func _on_SpawnTimer_timeout():
 			var new_enemy = enemy_scene.instance()
 			if new_enemy is Enemy:
 				print("signal connected")
-				new_enemy.connect("send_bullet", get_tree().get_root().get_node("Stage1/BulletPool"), "send_bullet" )
+#				new_enemy.connect("send_bullet", get_tree().get_root().get_node("Stage1/BulletPool"), "send_bullet" )
 	#		new_enemy.position = global_position
 			add_child(new_enemy)
 	if spawned_enemy < spawn_pool and can_spawn:
 		var new_enemy = enemy_scene.instance()
 		if new_enemy is Enemy:
-			new_enemy.connect("send_bullet", get_tree().get_root().get_node("Stage1/BulletPool"), "send_bullet" )
+			pass
+#			new_enemy.connect("send_bullet", get_tree().get_root().get_node("Stage1/BulletPool"), "send_bullet" )
 #		new_enemy.position = global_position
 		add_child(new_enemy)
 		spawned_enemy += 1

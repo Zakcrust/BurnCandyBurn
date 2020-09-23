@@ -1,4 +1,4 @@
-[gd_scene load_steps=25 format=2]
+[gd_scene load_steps=37 format=2]
 
 [ext_resource path="res://Assets/Player/Head/Head_0.tres" type="Texture" id=1]
 [ext_resource path="res://Assets/Player/Head/Head_1.tres" type="Texture" id=2]
@@ -31,6 +31,59 @@ atlas = ExtResource( 9 )
 region = Rect2( 4, 4, 116, 114 )
 margin = Rect2( 26, 40, 171, 105 )
 
+[sub_resource type="Animation" id=16]
+resource_name = "blip"
+length = 0.6
+loop = true
+tracks/0/type = "value"
+tracks/0/path = NodePath(".:texture")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 0.3, 0.6 ),
+"transitions": PoolRealArray( 1, 1, 1 ),
+"update": 1,
+"values": [ SubResource( 3 ), null, SubResource( 3 ) ]
+}
+
+[sub_resource type="Animation" id=17]
+resource_name = "idle"
+tracks/0/type = "value"
+tracks/0/path = NodePath(".:texture")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 1,
+"values": [ SubResource( 3 ) ]
+}
+
+[sub_resource type="AnimationNodeAnimation" id=18]
+animation = "blip"
+
+[sub_resource type="AnimationNodeAnimation" id=19]
+animation = "idle"
+
+[sub_resource type="AnimationNodeStateMachineTransition" id=20]
+
+[sub_resource type="AnimationNodeStateMachineTransition" id=21]
+
+[sub_resource type="AnimationNodeStateMachine" id=22]
+states/blip/node = SubResource( 18 )
+states/blip/position = Vector2( -748, -137 )
+states/idle/node = SubResource( 19 )
+states/idle/position = Vector2( -589, -137 )
+transitions = [ "idle", "blip", SubResource( 20 ), "blip", "idle", SubResource( 21 ) ]
+start_node = "idle"
+graph_offset = Vector2( -807, -203 )
+
+[sub_resource type="AnimationNodeStateMachinePlayback" id=23]
+
 [sub_resource type="StyleBoxFlat" id=4]
 bg_color = Color( 0.431373, 0.00784314, 0.423529, 1 )
 border_width_left = 6
@@ -43,6 +96,40 @@ bg_color = Color( 0.431373, 0.00784314, 0.423529, 1 )
 [sub_resource type="DynamicFont" id=6]
 size = 32
 font_data = ExtResource( 6 )
+
+[sub_resource type="DynamicFont" id=13]
+size = 42
+outline_size = 5
+outline_color = Color( 0.466667, 0.0627451, 0.501961, 1 )
+font_data = ExtResource( 4 )
+
+[sub_resource type="Animation" id=14]
+resource_name = "Go"
+loop = true
+tracks/0/type = "value"
+tracks/0/path = NodePath(".:rect_position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 0.5, 1 ),
+"transitions": PoolRealArray( 1, 1, 1 ),
+"update": 0,
+"values": [ Vector2( 900, 150 ), Vector2( 950, 150 ), Vector2( 900, 150 ) ]
+}
+
+[sub_resource type="DynamicFont" id=15]
+size = 36
+outline_size = 3
+outline_color = Color( 0.498039, 0.0588235, 0.490196, 1 )
+font_data = ExtResource( 4 )
+
+[sub_resource type="DynamicFont" id=24]
+size = 28
+outline_size = 3
+outline_color = Color( 0.490196, 0.0705882, 0.647059, 1 )
+font_data = ExtResource( 4 )
 
 [sub_resource type="DynamicFont" id=7]
 size = 24
@@ -265,12 +352,22 @@ region_enabled = true
 region_rect = Rect2( 24, 32, 96, 64 )
 
 [node name="border" type="Sprite" parent="ui/flamethrower"]
-visible = false
 scale = Vector2( 0.7, 0.7 )
 texture = SubResource( 3 )
 centered = false
 region_enabled = true
 region_rect = Rect2( 24, 40, 120, 116 )
+
+[node name="Anim" type="AnimationPlayer" parent="ui/flamethrower/border"]
+autoplay = "idle"
+anims/blip = SubResource( 16 )
+anims/idle = SubResource( 17 )
+
+[node name="AnimState" type="AnimationTree" parent="ui/flamethrower"]
+tree_root = SubResource( 22 )
+anim_player = NodePath("../border/Anim")
+active = true
+parameters/playback = SubResource( 23 )
 
 [node name="pause" type="Button" parent="ui"]
 margin_left = 896.0
@@ -284,6 +381,52 @@ text = "||"
 __meta__ = {
 "_edit_use_anchors_": false
 }
+
+[node name="Go" type="Control" parent="ui"]
+visible = false
+margin_right = 40.0
+margin_bottom = 40.0
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Label" type="Label" parent="ui/Go"]
+margin_left = 900.0
+margin_top = 150.0
+margin_right = 950.002
+margin_bottom = 209.0
+custom_fonts/font = SubResource( 13 )
+text = "Go"
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="ui/Go"]
+root_node = NodePath("../Label")
+autoplay = "Go"
+anims/Go = SubResource( 14 )
+
+[node name="RoomStatus" type="Control" parent="ui"]
+margin_left = 64.7601
+margin_top = 151.571
+margin_right = 104.76
+margin_bottom = 191.571
+
+[node name="Label" type="Label" parent="ui/RoomStatus"]
+margin_right = 40.0
+margin_bottom = 14.0
+custom_fonts/font = SubResource( 15 )
+text = "Stage 1 - 1"
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Wave" type="Label" parent="ui/RoomStatus"]
+margin_top = 65.0
+margin_right = 82.0
+margin_bottom = 79.0
+custom_fonts/font = SubResource( 24 )
+text = "Wave(s) Left : 0"
 
 [node name="pause" type="Control" parent="."]
 pause_mode = 2

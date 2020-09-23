@@ -7,9 +7,12 @@ onready var lives_ui : Array = $ui/hp.get_children()
 
 signal finish_game(status, game_time)
 
+var flamethrower_ui_state
+
 
 func _ready():
 	$ui/time/time.text = "00:00"
+	flamethrower_ui_state = $ui/flamethrower/AnimState.get("parameters/playback")
 	
 func _process(delta):
 	$ui/time/time.text = "%02d:%02d" % [minute, second]
@@ -25,6 +28,8 @@ func set_active_weapon(weapon : String) -> void:
 			$ui/flamepistol/border.visible = true
 		"flamethrower":
 			$ui/flamethrower/border.visible = true
+			$ui/flamethrower/border/Anim.stop()
+			$ui/flamethrower/border/Anim.play("idle")
 
 
 func _on_Timer_timeout():
@@ -65,9 +70,13 @@ func _on_GummyBear_update_health_ui(percent):
 
 func _on_Player_update_flamethrower_ui(full):
 	if full:
-		$ui/flamethrower/Sprite2.modulate = Color8(255,255,255, 255)
+		print("flamethrower enabled")
+		$ui/flamethrower/border.show()
+		$ui/flamethrower/border/Anim.play("blip")
+#		flamethrower_ui_state.travel("blip")
 	else:
-		$ui/flamethrower/Sprite2.modulate = Color8(255,255,255, 100)
+		$ui/flamethrower/border.hide()
+		$ui/flamethrower/border/Anim.play("idle")
 
 
 func _on_Player_lose():

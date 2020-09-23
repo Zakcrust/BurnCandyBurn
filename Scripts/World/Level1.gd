@@ -20,7 +20,7 @@ func _check_room() -> void:
 		3:
 			print("Room 3...")
 			$ToRoom3/Collider.disabled = false
-			$UI/ui/bossAppear.show()
+	$UI/ui/Go.show()
 
 
 func _on_ToRoom2_body_entered(body):
@@ -31,6 +31,8 @@ func _on_ToRoom2_body_entered(body):
 		body.set_max_x_pos(1024*2)
 		$ToRoom2/CollisionShape2D.call_deferred("set_disabled", true)
 		$Room2Spawner.start_spawners()
+		$UI/ui/Go.hide()
+		$UI/ui/RoomStatus/Label.text = "Stage 1 - 2"
 
 
 func _on_ToRoom3_body_entered(body):
@@ -43,6 +45,9 @@ func _on_ToRoom3_body_entered(body):
 		body.set_max_x_pos(1024*3)
 		$ToRoom3/Collider.call_deferred("set_disabled", true)
 		$Room3Spawner.start_spawners()
+		$UI/ui/Go.hide()
+		$UI/ui/RoomStatus/Label.text = "Stage 1 - 3"
+		$UI/ui/RoomStatus/Wave.text = "Boss Stage"
 
 
 func _on_Room1Spawner_enemies_cleared():
@@ -55,3 +60,11 @@ func _on_Room2Spawner_enemies_cleared():
 	current_room += 1
 	print("Enemies Cleared!")
 	_check_room()
+
+
+func _on_Room1Spawner_update_wave_ui(wave):
+	$UI/ui/RoomStatus/Wave.text = "Wave(s) Left : %s  " % wave
+
+
+func _on_Room2Spawner_update_wave_ui(wave):
+	$UI/ui/RoomStatus/Wave.text = "Wave(s) Left : %s  " % wave

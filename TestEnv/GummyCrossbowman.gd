@@ -8,6 +8,9 @@ var state = IDLE
 var dead : bool = false
 var current_health : int setget set_current_health, get_current_health
 
+var rand : RandomNumberGenerator
+
+
 onready var crossbow_bolt : PackedScene = load("res://TestEnv/CrossbowBolt.tscn")
 
 signal send_bullet(obj, obj_position, obj_rotation)
@@ -24,6 +27,10 @@ func _init().(2, 0):
 
 func _ready():
 	$Body.play("idle")
+	rand = RandomNumberGenerator.new()
+	attack_cooldown = true
+	$AttackCooldown.set_wait_time(rand.randf_range(1,2))
+	$AttackCooldown.start()
 
 
 func set_current_health(value :int) -> void:

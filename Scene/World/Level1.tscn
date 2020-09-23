@@ -502,13 +502,6 @@ spawn_delay = 1.0
 enemy_scene = ExtResource( 6 )
 maximum_spawn = 1
 
-[node name="SpawnPoint4" parent="Room2Spawner" instance=ExtResource( 8 )]
-position = Vector2( 482.203, -193.083 )
-spawn_pool = 1
-spawn_delay = 1.0
-enemy_scene = ExtResource( 6 )
-maximum_spawn = 1
-
 [node name="SpawnPoint5" parent="Room2Spawner" instance=ExtResource( 8 )]
 position = Vector2( 164.748, -96.241 )
 spawn_pool = 1
@@ -564,13 +557,14 @@ layer = 2
 [connection signal="update_ui_weapon" from="Player" to="UI" method="_on_Player_update_ui_weapon"]
 [connection signal="body_entered" from="ToRoom2" to="." method="_on_ToRoom2_body_entered"]
 [connection signal="enemies_cleared" from="Room1Spawner" to="." method="_on_Room1Spawner_enemies_cleared"]
+[connection signal="update_wave_ui" from="Room1Spawner" to="." method="_on_Room1Spawner_update_wave_ui"]
 [connection signal="enemy_cleared" from="Room1Spawner/SpawnPoint" to="Room1Spawner" method="_on_SpawnPoint_enemy_cleared"]
 [connection signal="enemy_cleared" from="Room1Spawner/SpawnPoint2" to="Room1Spawner" method="_on_SpawnPoint2_enemy_cleared"]
 [connection signal="enemies_cleared" from="Room2Spawner" to="." method="_on_Room2Spawner_enemies_cleared"]
+[connection signal="update_wave_ui" from="Room2Spawner" to="." method="_on_Room2Spawner_update_wave_ui"]
 [connection signal="enemy_cleared" from="Room2Spawner/SpawnPoint" to="Room2Spawner" method="_on_SpawnPoint_enemy_cleared"]
 [connection signal="enemy_cleared" from="Room2Spawner/SpawnPoint2" to="Room2Spawner" method="_on_SpawnPoint2_enemy_cleared"]
 [connection signal="enemy_cleared" from="Room2Spawner/SpawnPoint3" to="Room2Spawner" method="_on_SpawnPoint3_enemy_cleared"]
-[connection signal="enemy_cleared" from="Room2Spawner/SpawnPoint4" to="Room2Spawner" method="_on_SpawnPoint4_enemy_cleared"]
 [connection signal="enemy_cleared" from="Room2Spawner/SpawnPoint5" to="Room2Spawner" method="_on_SpawnPoint5_enemy_cleared"]
 [connection signal="body_entered" from="ToRoom3" to="." method="_on_ToRoom3_body_entered"]
 [connection signal="update_health_ui" from="GummyBear" to="UI" method="_on_GummyBear_update_health_ui"]

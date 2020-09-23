@@ -260,7 +260,7 @@ margin_right = 256.0
 margin_bottom = 73.0
 custom_fonts/font = SubResource( 9 )
 text = "YOU WIN 
-ty for playing"
+Thanks for playing"
 align = 1
 valign = 1
 
