@@ -1,0 +1,432 @@
+[gd_scene load_steps=18 format=2]
+
+[ext_resource path="res://Assets/environtment.png" type="Texture" id=1]
+[ext_resource path="res://Assets/Fonts/ENDOR___.ttf" type="DynamicFontData" id=2]
+[ext_resource path="res://Assets/Player/Walk/walk_0.tres" type="Texture" id=3]
+[ext_resource path="res://Assets/Player/Flamethrower/flamethrower.tres" type="Texture" id=4]
+[ext_resource path="res://Assets/Player/Dash/dash_0.tres" type="Texture" id=5]
+[ext_resource path="res://Assets/Player/FlamePistol/flame_pistol.tres" type="Texture" id=6]
+[ext_resource path="res://Assets/Player/Jump/jump.tres" type="Texture" id=7]
+[ext_resource path="res://Assets/Player/Dash/dash_1.tres" type="Texture" id=8]
+[ext_resource path="res://Assets/Player/Walk/walk_2.tres" type="Texture" id=9]
+[ext_resource path="res://Assets/Player/Walk/walk_1.tres" type="Texture" id=10]
+
+[sub_resource type="DynamicFont" id=1]
+size = 33
+font_data = ExtResource( 2 )
+
+[sub_resource type="SpriteFrames" id=2]
+animations = [ {
+"frames": [ ExtResource( 10 ), ExtResource( 3 ), ExtResource( 9 ), ExtResource( 3 ) ],
+"loop": true,
+"name": "walk",
+"speed": 5.0
+} ]
+
+[sub_resource type="DynamicFont" id=3]
+size = 23
+font_data = ExtResource( 2 )
+
+[sub_resource type="SpriteFrames" id=4]
+animations = [ {
+"frames": [ ExtResource( 3 ), ExtResource( 7 ) ],
+"loop": true,
+"name": "walk",
+"speed": 2.0
+} ]
+
+[sub_resource type="SpriteFrames" id=5]
+animations = [ {
+"frames": [ ExtResource( 3 ), ExtResource( 5 ), ExtResource( 8 ) ],
+"loop": true,
+"name": "walk",
+"speed": 2.0
+} ]
+
+[sub_resource type="SpriteFrames" id=6]
+animations = [ {
+"frames": [ ExtResource( 6 ) ],
+"loop": true,
+"name": "walk",
+"speed": 2.0
+} ]
+
+[sub_resource type="Animation" id=7]
+resource_name = "aim"
+loop = true
+tracks/0/type = "value"
+tracks/0/path = NodePath("sprite:rotation_degrees")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 0.3, 0.6, 0.9 ),
+"transitions": PoolRealArray( 1, 1, 1, 1 ),
+"update": 0,
+"values": [ 0.0, 24.0, -36.0, -12.0 ]
+}
+
+[node name="tutorial" type="Control"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="bg" type="Sprite" parent="."]
+position = Vector2( 692.728, 299.208 )
+scale = Vector2( 1.87978, 1.87978 )
+texture = ExtResource( 1 )
+region_enabled = true
+region_rect = Rect2( 1447, 1556, 1210, 324 )
+
+[node name="ColorRect" type="ColorRect" parent="."]
+margin_left = 32.0
+margin_top = 48.0
+margin_right = 520.0
+margin_bottom = 544.0
+color = Color( 0.262745, 0.0980392, 0.329412, 1 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="ColorRect" type="ColorRect" parent="ColorRect"]
+margin_left = 208.0
+margin_top = 40.0
+margin_right = 464.0
+margin_bottom = 120.0
+color = Color( 0.141176, 0.0745098, 0.168627, 1 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Label" type="Label" parent="ColorRect/ColorRect"]
+margin_left = 88.0
+margin_right = 208.0
+margin_bottom = 80.0
+custom_fonts/font = SubResource( 1 )
+text = "walk"
+align = 1
+valign = 1
+__meta__ = {
+"_edit_use_anchors_": false,
+"_editor_description_": ""
+}
+
+[node name="AnimatedSprite" type="AnimatedSprite" parent="ColorRect/ColorRect"]
+position = Vector2( 56, 40 )
+frames = SubResource( 2 )
+animation = "walk"
+frame = 3
+playing = true
+
+[node name="ColorRect2" type="ColorRect" parent="ColorRect"]
+margin_left = 40.0
+margin_top = 40.0
+margin_right = 168.0
+margin_bottom = 120.0
+color = Color( 0.141176, 0.0745098, 0.168627, 1 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Label" type="Label" parent="ColorRect/ColorRect2"]
+margin_right = 128.0
+margin_bottom = 80.0
+custom_fonts/font = SubResource( 3 )
+text = "A # D"
+align = 1
+valign = 1
+
+[node name="ColorRect3" type="ColorRect" parent="ColorRect"]
+margin_left = 208.0
+margin_top = 152.0
+margin_right = 464.0
+margin_bottom = 232.0
+color = Color( 0.141176, 0.0745098, 0.168627, 1 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Label" type="Label" parent="ColorRect/ColorRect3"]
+margin_left = 88.0
+margin_right = 208.0
+margin_bottom = 80.0
+custom_fonts/font = SubResource( 1 )
+text = "jump"
+align = 1
+valign = 1
+__meta__ = {
+"_edit_use_anchors_": false,
+"_editor_description_": ""
+}
+
+[node name="AnimatedSprite" type="AnimatedSprite" parent="ColorRect/ColorRect3"]
+position = Vector2( 56, 40 )
+frames = SubResource( 4 )
+animation = "walk"
+playing = true
+
+[node name="ColorRect4" type="ColorRect" parent="ColorRect"]
+margin_left = 40.0
+margin_top = 152.0
+margin_right = 168.0
+margin_bottom = 232.0
+color = Color( 0.141176, 0.0745098, 0.168627, 1 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Label" type="Label" parent="ColorRect/ColorRect4"]
+margin_right = 128.0
+margin_bottom = 80.0
+custom_fonts/font = SubResource( 3 )
+text = "W"
+align = 1
+valign = 1
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="ColorRect5" type="ColorRect" parent="ColorRect"]
+margin_left = 208.0
+margin_top = 264.0
+margin_right = 464.0
+margin_bottom = 344.0
+color = Color( 0.141176, 0.0745098, 0.168627, 1 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Label" type="Label" parent="ColorRect/ColorRect5"]
+margin_left = 88.0
+margin_right = 208.0
+margin_bottom = 80.0
+custom_fonts/font = SubResource( 1 )
+text = "dash"
+align = 1
+valign = 1
+__meta__ = {
+"_edit_use_anchors_": false,
+"_editor_description_": ""
+}
+
+[node name="AnimatedSprite" type="AnimatedSprite" parent="ColorRect/ColorRect5"]
+position = Vector2( 56, 40 )
+frames = SubResource( 5 )
+animation = "walk"
+playing = true
+
+[node name="ColorRect6" type="ColorRect" parent="ColorRect"]
+margin_left = 40.0
+margin_top = 264.0
+margin_right = 168.0
+margin_bottom = 344.0
+color = Color( 0.141176, 0.0745098, 0.168627, 1 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Label" type="Label" parent="ColorRect/ColorRect6"]
+margin_right = 128.0
+margin_bottom = 80.0
+custom_fonts/font = SubResource( 3 )
+text = "L-shift"
+align = 1
+valign = 1
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="ColorRect7" type="ColorRect" parent="ColorRect"]
+margin_left = 208.0
+margin_top = 376.0
+margin_right = 464.0
+margin_bottom = 456.0
+color = Color( 0.141176, 0.0745098, 0.168627, 1 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Label" type="Label" parent="ColorRect/ColorRect7"]
+margin_left = 88.0
+margin_right = 208.0
+margin_bottom = 80.0
+custom_fonts/font = SubResource( 1 )
+text = "fire"
+align = 1
+valign = 1
+__meta__ = {
+"_edit_use_anchors_": false,
+"_editor_description_": ""
+}
+
+[node name="AnimatedSprite" type="AnimatedSprite" parent="ColorRect/ColorRect7"]
+position = Vector2( 64, 40 )
+scale = Vector2( 1.7, 1.7 )
+frames = SubResource( 6 )
+animation = "walk"
+playing = true
+
+[node name="ColorRect8" type="ColorRect" parent="ColorRect"]
+margin_left = 40.0
+margin_top = 376.0
+margin_right = 168.0
+margin_bottom = 456.0
+color = Color( 0.141176, 0.0745098, 0.168627, 1 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Label" type="Label" parent="ColorRect/ColorRect8"]
+margin_right = 128.0
+margin_bottom = 80.0
+custom_fonts/font = SubResource( 3 )
+text = "L-click"
+align = 1
+valign = 1
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="ColorRect2" type="ColorRect" parent="."]
+margin_left = 536.0
+margin_top = 48.0
+margin_right = 992.0
+margin_bottom = 400.0
+color = Color( 0.262745, 0.0980392, 0.329412, 1 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="ColorRect" type="ColorRect" parent="ColorRect2"]
+margin_left = 208.0
+margin_top = 40.0
+margin_right = 416.0
+margin_bottom = 120.0
+color = Color( 0.141176, 0.0745098, 0.168627, 1 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="ColorRect2/ColorRect"]
+autoplay = "aim"
+anims/aim = SubResource( 7 )
+
+[node name="Label" type="Label" parent="ColorRect2/ColorRect"]
+margin_left = 88.0
+margin_right = 208.0
+margin_bottom = 80.0
+custom_fonts/font = SubResource( 1 )
+text = "aim"
+align = 1
+valign = 1
+__meta__ = {
+"_edit_use_anchors_": false,
+"_editor_description_": ""
+}
+
+[node name="sprite" type="Sprite" parent="ColorRect2/ColorRect"]
+position = Vector2( 56, 40 )
+rotation = 0.310061
+scale = Vector2( 1.32759, 1.32759 )
+texture = ExtResource( 4 )
+
+[node name="ColorRect2" type="ColorRect" parent="ColorRect2"]
+margin_left = 40.0
+margin_top = 40.0
+margin_right = 168.0
+margin_bottom = 120.0
+color = Color( 0.141176, 0.0745098, 0.168627, 1 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Label" type="Label" parent="ColorRect2/ColorRect2"]
+margin_right = 128.0
+margin_bottom = 80.0
+custom_fonts/font = SubResource( 3 )
+text = "mouse"
+align = 1
+valign = 1
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="ColorRect4" type="ColorRect" parent="ColorRect2"]
+margin_left = 40.0
+margin_top = 224.0
+margin_right = 168.0
+margin_bottom = 304.0
+color = Color( 0.141176, 0.0745098, 0.168627, 1 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Label" type="Label" parent="ColorRect2/ColorRect4"]
+margin_top = 56.0
+margin_right = 128.0
+margin_bottom = 136.0
+custom_fonts/font = SubResource( 3 )
+text = "1"
+align = 1
+valign = 1
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Sprite" type="Sprite" parent="ColorRect2/ColorRect4"]
+position = Vector2( 16, 16 )
+scale = Vector2( 2.175, 2.175 )
+texture = ExtResource( 6 )
+centered = false
+
+[node name="ColorRect5" type="ColorRect" parent="ColorRect2"]
+margin_left = 288.0
+margin_top = 224.0
+margin_right = 416.0
+margin_bottom = 304.0
+color = Color( 0.141176, 0.0745098, 0.168627, 1 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Label" type="Label" parent="ColorRect2/ColorRect5"]
+margin_top = 56.0
+margin_right = 128.0
+margin_bottom = 136.0
+custom_fonts/font = SubResource( 3 )
+text = "2"
+align = 1
+valign = 1
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Sprite" type="Sprite" parent="ColorRect2/ColorRect5"]
+position = Vector2( 16, 8 )
+scale = Vector2( 1.93103, 1.93103 )
+texture = ExtResource( 4 )
+centered = false
+
+[node name="ColorRect3" type="ColorRect" parent="ColorRect2"]
+margin_left = 40.0
+margin_top = 152.0
+margin_right = 416.0
+margin_bottom = 208.0
+color = Color( 0.141176, 0.0745098, 0.168627, 1 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Label" type="Label" parent="ColorRect2/ColorRect3"]
+margin_right = 376.0
+margin_bottom = 56.0
+custom_fonts/font = SubResource( 3 )
+text = "Switch Weapon"
+align = 1
+valign = 1
+__meta__ = {
+"_edit_use_anchors_": false
+}
