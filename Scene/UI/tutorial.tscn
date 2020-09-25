@@ -1,4 +1,4 @@
-[gd_scene load_steps=18 format=2]
+[gd_scene load_steps=22 format=2]
 
 [ext_resource path="res://Assets/environtment.png" type="Texture" id=1]
 [ext_resource path="res://Assets/Fonts/ENDOR___.ttf" type="DynamicFontData" id=2]
@@ -10,6 +10,24 @@
 [ext_resource path="res://Assets/Player/Dash/dash_1.tres" type="Texture" id=8]
 [ext_resource path="res://Assets/Player/Walk/walk_2.tres" type="Texture" id=9]
 [ext_resource path="res://Assets/Player/Walk/walk_1.tres" type="Texture" id=10]
+[ext_resource path="res://Assets/Fonts/ESKARGOT.ttf" type="DynamicFontData" id=11]
+
+[sub_resource type="GDScript" id=10]
+script/source = "extends Control
+
+var can_proceed = false
+
+func _input(event):
+	if Input.is_action_just_pressed(\"jump\"):
+		if can_proceed:
+			get_tree().change_scene(\"res://Scene/World/Level1.tscn\")
+
+
+
+func _on_Timer_timeout():
+	can_proceed = true
+	$Continue.show()
+"
 
 [sub_resource type="DynamicFont" id=1]
 size = 33
@@ -67,9 +85,33 @@ tracks/0/keys = {
 "values": [ 0.0, 24.0, -36.0, -12.0 ]
 }
 
+[sub_resource type="DynamicFont" id=9]
+size = 36
+outline_size = 3
+outline_color = Color( 0.576471, 0.0117647, 0.623529, 1 )
+font_data = ExtResource( 11 )
+
+[sub_resource type="Animation" id=8]
+resource_name = "blip"
+length = 0.6
+loop = true
+tracks/0/type = "value"
+tracks/0/path = NodePath(".:visible")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 0.3, 0.6 ),
+"transitions": PoolRealArray( 1, 1, 1 ),
+"update": 1,
+"values": [ true, false, true ]
+}
+
 [node name="tutorial" type="Control"]
 anchor_right = 1.0
 anchor_bottom = 1.0
+script = SubResource( 10 )
 __meta__ = {
 "_edit_use_anchors_": false
 }
@@ -118,7 +160,7 @@ __meta__ = {
 position = Vector2( 56, 40 )
 frames = SubResource( 2 )
 animation = "walk"
-frame = 3
+frame = 1
 playing = true
 
 [node name="ColorRect2" type="ColorRect" parent="ColorRect"]
@@ -166,6 +208,7 @@ __meta__ = {
 position = Vector2( 56, 40 )
 frames = SubResource( 4 )
 animation = "walk"
+frame = 1
 playing = true
 
 [node name="ColorRect4" type="ColorRect" parent="ColorRect"]
@@ -182,7 +225,7 @@ __meta__ = {
 margin_right = 128.0
 margin_bottom = 80.0
 custom_fonts/font = SubResource( 3 )
-text = "W"
+text = "Space"
 align = 1
 valign = 1
 __meta__ = {
@@ -430,3 +473,29 @@ valign = 1
 __meta__ = {
 "_edit_use_anchors_": false
 }
+
+[node name="Continue" type="Control" parent="."]
+visible = false
+margin_right = 40.0
+margin_bottom = 40.0
+
+[node name="Label" type="Label" parent="Continue"]
+margin_left = 580.0
+margin_top = 437.0
+margin_right = 997.0
+margin_bottom = 493.0
+custom_fonts/font = SubResource( 9 )
+text = "Press Space to Continue"
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Anim" type="AnimationPlayer" parent="Continue/Label"]
+autoplay = "blip"
+anims/blip = SubResource( 8 )
+
+[node name="Timer" type="Timer" parent="."]
+wait_time = 3.0
+one_shot = true
+autostart = true
+[connection signal="timeout" from="Timer" to="." method="_on_Timer_timeout"]
